@@ -17,6 +17,11 @@ _global_script_class_icons={
 
 config/name="another_castle"
 run/main_scene="res://scene/level_A1.tscn"
+boot_splash/bg_color=Color( 0.533333, 0.533333, 0.541176, 1 )
+
+[display]
+
+window/size/fullscreen=true
 
 [input]
 
@@ -37,6 +42,11 @@ dash={
 2d_physics/layer_2="player"
 2d_physics/layer_3="hammer"
 2d_physics/layer_4="ennemy"
+
+[physics]
+
+2d/physics_engine="GodotPhysics"
+3d/active_soft_world=false
 
 [rendering]
 
