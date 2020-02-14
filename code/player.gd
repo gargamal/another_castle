@@ -15,9 +15,10 @@ enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH}
 var state = IDLE
 var dashing = false
 var throwing = false
+var throw_hammer = false
 
-var hammer = preload("res://scene/hammer.tscn")
-var img_dash = preload("res://scene/dash.tscn")
+onready var hammer = preload("res://scene/hammer.tscn")
+onready var img_dash = preload("res://scene/dash.tscn")
 
 export (float) var dalay_time = 0.4
 export (int) var height_jump = 1700
@@ -39,13 +40,13 @@ func change_state(new_state):
 	state = new_state
 	match state:
 		IDLE:
-			animation_play("idle" if has_hammer else  "idle_noham")
+			animation_play("idle" if has_hammer else "idle_noham")
 		WALK:
-			animation_play("walk" if has_hammer else  "walk_noham")
+			animation_play("walk" if has_hammer else "walk_noham")
 		JUMP_UP:
-			animation_play("jump_up" if has_hammer else  "jump_up_noham")
+			animation_play("jump_up" if has_hammer else "jump_up_noham")
 		JUMP_DOWN:
-			animation_play("jump_down" if has_hammer else  "jump_down_noham")
+			animation_play("jump_down" if has_hammer else "jump_down_noham")
 		DASH:
 			for x in range(0, 5):
 				var i = img_dash.instance()
@@ -80,13 +81,15 @@ func state_loop():
 		change_state(IDLE)
 	if state == WALK and dashing:
 		change_state(DASH)
+	if throw_hammer and has_hammer and not throwing and not is_on_wall():
+		change_state(THROW)
 
 func movement_loop():
 	var right = Input.is_action_pressed("ui_right")
 	var left = Input.is_action_pressed("ui_left")
 	var jump = Input.is_action_just_pressed("ui_accept")
-	var throw_hammer = Input.is_action_just_pressed("ui_throw_hammer")
 	var dash = Input.is_action_just_pressed("dash")
+	throw_hammer = Input.is_action_just_pressed("ui_throw_hammer")
 
 	if not dashing:
 		dir_x = int(right) - int(left)
@@ -116,8 +119,6 @@ func movement_loop():
 	if jump and is_on_floor():
 		vel.y = -height_jump
 		
-	if throw_hammer and has_hammer and not throwing:
-		change_state(THROW)
 		
 func take_hammer():
 	has_hammer = true
