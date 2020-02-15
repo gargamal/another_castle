@@ -23,7 +23,7 @@ tracks/0/keys = {
 "values": [ 4, 5 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "idle_noham"
 loop = true
 tracks/0/type = "value"
@@ -39,8 +39,7 @@ tracks/0/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=3]
-resource_name = "jump_down"
+[sub_resource type="Animation" id=4]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -55,7 +54,7 @@ tracks/0/keys = {
 "values": [ 9 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=5]
 resource_name = "jump_down_noham"
 length = 0.2
 tracks/0/type = "value"
@@ -71,8 +70,7 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "jump_up"
+[sub_resource type="Animation" id=6]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -87,7 +85,7 @@ tracks/0/keys = {
 "values": [ 11, 9 ]
 }
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=7]
 resource_name = "jump_up_noham"
 length = 0.4
 tracks/0/type = "value"
@@ -103,8 +101,7 @@ tracks/0/keys = {
 "values": [ 10, 8 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "throw_hammer"
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
@@ -119,7 +116,7 @@ tracks/0/keys = {
 "values": [ 4, 12 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=9]
 length = 0.8
 loop = true
 tracks/0/type = "value"
@@ -135,9 +132,9 @@ tracks/0/keys = {
 "values": [ 6, 5, 7, 5 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "walk_noham"
+[sub_resource type="Animation" id=10]
 length = 0.8
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
@@ -164,7 +161,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 4
-frame = 8
+frame = 2
 region_rect = Rect2( 128, 128, 128, 128 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -178,14 +175,14 @@ current = true
 autoplay = "idle"
 playback_speed = 1.4
 anims/idle = SubResource( 2 )
-anims/idle_noham = SubResource( 7 )
-anims/jump_down = SubResource( 3 )
-anims/jump_down_noham = SubResource( 9 )
-anims/jump_up = SubResource( 4 )
-anims/jump_up_noham = SubResource( 10 )
-anims/throw_hammer = SubResource( 5 )
-anims/walk = SubResource( 6 )
-anims/walk_noham = SubResource( 8 )
+anims/idle_noham = SubResource( 3 )
+anims/jump_down = SubResource( 4 )
+anims/jump_down_noham = SubResource( 5 )
+anims/jump_up = SubResource( 6 )
+anims/jump_up_noham = SubResource( 7 )
+anims/throw_hammer = SubResource( 8 )
+anims/walk = SubResource( 9 )
+anims/walk_noham = SubResource( 10 )
 
 [node name="muzzle" type="Position2D" parent="."]
 position = Vector2( 35, -25 )

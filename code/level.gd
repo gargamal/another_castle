@@ -2,6 +2,7 @@ extends Node2D
 
 onready var coin_scene = preload("res://scene/coin.tscn")
 onready var life_scene = preload("res://scene/life.tscn")
+onready var cassoulet_scene = preload("res://scene/cassoulet.tscn")
 
 func _ready():
 	camera_set_limit()
@@ -23,15 +24,17 @@ func spawn_item():
 	for cell in $items.get_used_cells():
 		var id = $items.get_cellv(cell)
 		var type = $items.tile_set.tile_get_name(id)
-		if type in ["coin", "life"]:
+		if type in ["coin", "life", "cassoulet"]:
 			var pos = $items.map_to_world(cell)
 			pos = pos + $items.position
 			
 			var itm = null
 			if type == "coin":
 				itm = coin_scene.instance()
-			else:
+			elif type == "life":
 				itm = life_scene.instance()
+			elif type == "cassoulet":
+				itm = cassoulet_scene.instance()
 				
 			if itm and itm.has_method("init"):
 				itm.init(pos + $items.cell_size / 2)
