@@ -185,4 +185,4 @@ anims/walk = SubResource( 9 )
 anims/walk_noham = SubResource( 10 )
 
 [node name="muzzle" type="Position2D" parent="."]
-position = Vector2( 35, -25 )
+position = Vector2( 35, -10 )
