@@ -7,7 +7,7 @@ const ACCEL = 100
 const LIMIT_LOW_SPEED = 5.0
 
 var vel = Vector2()
-var with_jump = false
+var with_jump = true
 var jump = false
 var dir_x
 # state
@@ -22,7 +22,6 @@ func _ready():
 	
 
 func init(pos):
-	print("ennemy")
 	position = pos
 	
 
@@ -65,6 +64,9 @@ func state_loop():
 	
 
 func movement_loop():
+	if is_on_wall():
+		dir_x = dir_x * -1
+	
 	if dir_x == 1: # move right
 		vel.x = min(vel.x + ACCEL, max_speed)
 		$sprite.flip_h = true
@@ -76,9 +78,14 @@ func movement_loop():
 		
 	if jump and is_on_floor():
 		vel.y = -height_jump
+		jump = false
 		
 	
 func play_enemy():
 	var val = int(rand_range(0, 10))
 	dir_x = 1 if val < 5 else -1 
+	
+	if with_jump:
+		val = int(rand_range(0, 10))
+		jump = val < 3
 	
