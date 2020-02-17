@@ -7,10 +7,14 @@ var cassoulet_max = 100
 var score
 
 
+#SIGNAL
+signal death_player
+
 func _ready():
-	life = 3
+	life = 1
 	cassoulet = 0
 	score = 0
+	Engine.time_scale = 1.0
 
 
 func _process(delta):
@@ -31,3 +35,14 @@ func _on_level_A1_life_changed(value):
 func _on_level_A1_score_changed(value):
 	score += value
 
+
+func _on_player_take_damage(value):
+	life -= value
+	if life <= 0:
+		emit_signal("death_player")
+		Engine.time_scale = 0.5
+		$CanvasLayer/AnimationPlayer.play("game_over")
+
+
+func _on_Button_pressed():
+	get_tree().reload_current_scene()

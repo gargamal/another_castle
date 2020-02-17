@@ -675,7 +675,7 @@ position = Vector2( -53, 0 )
 tile_set = SubResource( 49 )
 collision_mask = 15
 format = 1
-tile_data = PoolIntArray( -393216, 0, 6, -393199, 0, 6, -327680, 0, 65542, -327663, 0, 65542, -262144, 0, 65542, -262127, 0, 65542, -196608, 0, 65542, -196591, 0, 65542, -131072, 0, 65542, -131055, 0, 65542, -65536, 0, 65542, -65519, 0, 65542, 0, 0, 65542, 17, 0, 65542, 65536, 0, 65542, 65553, 0, 65542, 131072, 0, 65542, 131089, 0, 65542, 196608, 0, 131078, 196625, 0, 131078, 458752, 0, 196609, 458753, 0, 196610, 458754, 0, 196610, 458755, 0, 196610, 458756, 0, 196610, 458757, 0, 196610, 458758, 0, 196610, 458759, 0, 196610, 458760, 0, 196610, 458761, 0, 196610, 458762, 0, 196610, 458763, 0, 196610, 458764, 0, 196610, 458765, 0, 196610, 458766, 0, 196610, 458767, 0, 196610, 458768, 0, 196610, 458769, 0, 196611 )
+tile_data = PoolIntArray( -393216, 0, 6, -393199, 0, 6, -327680, 0, 65542, -327663, 0, 65542, -262144, 0, 65542, -262127, 0, 65542, -196608, 0, 65542, -196591, 0, 65542, -131072, 0, 65542, -131055, 0, 65542, -65536, 0, 65542, -65519, 0, 65542, 0, 0, 65542, 17, 0, 65542, 65536, 0, 65542, 65553, 0, 65542, 131072, 0, 65542, 131089, 0, 65542, 196608, 0, 65542, 196625, 0, 65542, 262144, 0, 65542, 262161, 0, 65542, 327680, 0, 65542, 327697, 0, 65542, 393216, 0, 65542, 393233, 0, 65542, 458752, 0, 65543, 458753, 0, 196610, 458754, 0, 196610, 458755, 0, 196610, 458756, 0, 196610, 458757, 0, 196610, 458758, 0, 196610, 458759, 0, 196610, 458760, 0, 196610, 458761, 0, 196610, 458762, 0, 196610, 458763, 0, 196610, 458764, 0, 196610, 458765, 0, 196610, 458766, 0, 196610, 458767, 0, 196610, 458768, 0, 196610, 458769, 0, 65544 )
 
 [node name="items" type="TileMap" parent="."]
 tile_set = SubResource( 50 )
@@ -686,6 +686,7 @@ position = Vector2( 1, 0 )
 tile_set = SubResource( 51 )
 cell_size = Vector2( 128, 128 )
 format = 1
+tile_data = PoolIntArray( 131077, 2, 0 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 506.335, 16.7646 )
@@ -754,7 +755,7 @@ texture = ExtResource( 3 )
 polygon = PoolVector2Array( 61.5727, -62.2615, -63.5652, -63.4238, -63.9526, 63.6512, 63.1224, 64.0386 )
 
 [node name="exit_left" type="Area2D" parent="utils"]
-position = Vector2( -108.194, 350.228 )
+position = Vector2( -114.194, 350.228 )
 scale = Vector2( 1, 1.3 )
 collision_mask = 2
 __meta__ = {
@@ -769,5 +770,7 @@ polygon = PoolVector2Array( 61.5727, -62.2615, -63.5652, -63.4238, -63.9526, 63.
 [connection signal="cassoulet_changed" from="." to="HUD" method="_on_level_A1_cassoulet_changed"]
 [connection signal="life_changed" from="." to="HUD" method="_on_level_A1_life_changed"]
 [connection signal="score_changed" from="." to="HUD" method="_on_level_A1_score_changed"]
+[connection signal="death_player" from="HUD" to="player" method="_on_HUD_death_player"]
+[connection signal="take_damage" from="player" to="HUD" method="_on_player_take_damage"]
 [connection signal="body_entered" from="utils/exit_right" to="." method="_on_exit_right_body_entered"]
 [connection signal="body_entered" from="utils/exit_left" to="." method="_on_exit_left_body_entered"]

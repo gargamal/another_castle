@@ -17,6 +17,7 @@ onready var walter_scene = preload("res://scene/walter.tscn")
 export(String, FILE, "*.tscn") var next_right
 export(String, FILE, "*.tscn") var next_left
 
+
 var dict_scene
 
 

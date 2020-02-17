@@ -11,12 +11,16 @@ var with_jump = true
 var jump = false
 var dir_x
 var _type
+
 # state
 enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, DEATH}
 var state = IDLE
 
 export (int) var height_jump = 1700
 export (int) var max_speed = 400
+export (int) var life = 10
+
+var damage = 1
 
 func _ready():
 	randomize()
@@ -25,6 +29,7 @@ func _ready():
 func init(pos, type):
 	position = pos
 	_type = type
+	add_to_group("enemy", true)
 	
 
 func _physics_process(delta):
@@ -91,3 +96,13 @@ func play_enemy():
 		val = int(rand_range(0, 10))
 		jump = val < 3
 	
+
+func hit(domage):
+	life -= domage
+	if life <= 0:
+		$anim.stop()
+		set_physics_process(false)
+		for i in range(0, 4):
+			yield(get_tree().create_timer(0.2), "timeout")
+			modulate = Color(1, 1, 1, 0.8 if i % 2 == 0 else 0.2)
+		queue_free()

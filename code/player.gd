@@ -16,13 +16,20 @@ var state = IDLE
 var dashing = false
 var throwing = false
 var throw_hammer = false
+var is_hurting = false
 
 onready var hammer = preload("res://scene/hammer.tscn")
 onready var img_dash = preload("res://scene/dash.tscn")
 
 export (float) var dalay_time = 0.4
 export (int) var height_jump = 1700
-export (int) var max_speed = 400	
+export (int) var max_speed = 400
+
+#SIGNALS
+signal take_damage(value)
+
+func _ready():
+	add_to_group("player")
 
 func _physics_process(delta):
 	movement_loop()
@@ -66,6 +73,9 @@ func change_state(new_state):
 			get_parent().add_child(ham)
 			has_hammer = false
 			change_state(IDLE)
+		DEATH:
+			set_physics_process(false)
+			rotation_degrees = -90
 			
 
 func state_loop():
@@ -124,5 +134,23 @@ func take_hammer():
 	has_hammer = true
 	throwing = false
 	change_state(IDLE)
-	
-	
+
+
+func _on_hit_box_body_entered(body):
+	if body.is_in_group("enemy") and not is_hurting and state != DEATH:
+		emit_signal("take_damage", body.damage)
+		is_hurting = true
+		var collision_point = global_position - body.global_position
+		vel.x = sign(collision_point.x) * (max_speed * 4)
+		vel.y = -(height_jump / 2)
+		vel = move_and_slide(vel, UP)
+		for i in range(0, 9):
+			yield(get_tree().create_timer(0.2), "timeout")
+			modulate = Color(1, 1, 1, 0.8 if i % 2 == 0 else 0.2)
+		modulate = Color(1, 1, 1, 1)
+		is_hurting = false
+
+
+
+func _on_HUD_death_player():
+	change_state(DEATH)
