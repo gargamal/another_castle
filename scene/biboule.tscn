@@ -73,6 +73,8 @@ tracks/0/keys = {
 }
 
 [node name="biboule" type="KinematicBody2D"]
+collision_layer = 8
+collision_mask = 7
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

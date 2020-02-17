@@ -10,6 +10,7 @@ var vel = Vector2()
 var with_jump = true
 var jump = false
 var dir_x
+var _type
 # state
 enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, DEATH}
 var state = IDLE
@@ -21,8 +22,9 @@ func _ready():
 	randomize()
 	
 
-func init(pos):
+func init(pos, type):
 	position = pos
+	_type = type
 	
 
 func _physics_process(delta):

@@ -1,7 +1,13 @@
 extends Area2D
 
-func init(pos):
+
+signal picked(body)
+
+var _type
+
+func init(pos, type):
 	position = pos
+	_type = type
 		
 
 func body_entered():
@@ -35,6 +41,7 @@ func body_entered():
 		
 	$Tween.start()
 	yield($Tween, "tween_completed")
-		
+	emit_signal("picked", _type)
+	
 	queue_free()
 
