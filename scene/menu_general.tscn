@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scene/menu.tscn" type="PackedScene" id=1]
+[ext_resource path="res://img/menu/menu_start.png" type="Texture" id=2]
+[ext_resource path="res://code/menu_general.gd" type="Script" id=3]
+
+[node name="menu_general" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" parent="ColorRect" instance=ExtResource( 1 )]
+pause_mode = 2
+
+[node name="start" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 514.791, 257.395 )
+texture = ExtResource( 2 )
+vframes = 3
+
+[node name="options" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 508.846, 373.671 )
+texture = ExtResource( 2 )
+vframes = 3
+frame = 1
+
+[node name="quit" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 513.902, 492.247 )
+texture = ExtResource( 2 )
+vframes = 3
+frame = 2
+[connection signal="selected_item" from="ColorRect/menu" to="." method="_on_menu_selected_item"]

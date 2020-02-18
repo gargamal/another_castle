@@ -41,6 +41,9 @@ func _ready():
 			$player.global_position = $utils/spawn_right.global_position
 		GLOBAL.RIGHT:
 			$player.global_position = $utils/spawn_left.global_position
+			
+	var menu = preload("res://scene/menu_general.tscn").instance()
+	add_child(menu)
 
 
 func _physics_process(delta):
