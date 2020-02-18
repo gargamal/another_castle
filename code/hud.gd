@@ -11,7 +11,7 @@ var score
 signal death_player
 
 func _ready():
-	life = 1
+	life = 3
 	cassoulet = 0
 	score = 0
 	Engine.time_scale = 1.0

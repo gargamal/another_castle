@@ -28,15 +28,17 @@ export (int) var max_speed = 400
 #SIGNALS
 signal take_damage(value)
 
+
 func _ready():
 	add_to_group("player")
+
 
 func _physics_process(delta):
 	movement_loop()
 	state_loop()
 	vel.y += GRAVITY * delta
 	vel = move_and_slide(vel, UP)
-	
+
 
 func animation_play(animation):
 	if $anim.current_animation != animation:
@@ -76,7 +78,7 @@ func change_state(new_state):
 		DEATH:
 			set_physics_process(false)
 			rotation_degrees = -90
-			
+
 
 func state_loop():
 	if state == IDLE and abs(vel.x) >= LIMIT_LOW_SPEED:
@@ -93,6 +95,7 @@ func state_loop():
 		change_state(DASH)
 	if throw_hammer and has_hammer and not throwing and not is_on_wall():
 		change_state(THROW)
+
 
 func movement_loop():
 	var right = Input.is_action_pressed("ui_right")
@@ -139,6 +142,7 @@ func take_hammer():
 func _on_hit_box_body_entered(body):
 	if body.is_in_group("enemy") and not is_hurting and state != DEATH:
 		emit_signal("take_damage", body.damage)
+		$cam/screen_shake.start(20, 5, 0.2)
 		is_hurting = true
 		var collision_point = global_position - body.global_position
 		vel.x = sign(collision_point.x) * (max_speed * 4)
@@ -149,7 +153,6 @@ func _on_hit_box_body_entered(body):
 			modulate = Color(1, 1, 1, 0.8 if i % 2 == 0 else 0.2)
 		modulate = Color(1, 1, 1, 1)
 		is_hurting = false
-
 
 
 func _on_HUD_death_player():
