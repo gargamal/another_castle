@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://code/menu_pause.gd" type="Script" id=1]
+[ext_resource path="res://code/menu.gd" type="Script" id=2]
+[ext_resource path="res://scene/menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://img/menu/menu_pause.png" type="Texture" id=4]
+
+[node name="menu_pause" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.470588 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" parent="ColorRect" instance=ExtResource( 3 )]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="continue" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 500.491, 201.785 )
+texture = ExtResource( 4 )
+vframes = 4
+
+[node name="restart" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 506.846, 318.95 )
+texture = ExtResource( 4 )
+vframes = 4
+frame = 1
+
+[node name="options" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 505.846, 437.024 )
+texture = ExtResource( 4 )
+vframes = 4
+frame = 2
+
+[node name="quit" type="Sprite" parent="ColorRect/menu"]
+position = Vector2( 511.502, 557.544 )
+texture = ExtResource( 4 )
+vframes = 4
+frame = 3
+[connection signal="selected_item" from="ColorRect/menu" to="." method="_on_menu_selected_item"]

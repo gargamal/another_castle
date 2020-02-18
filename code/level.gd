@@ -43,6 +43,13 @@ func _ready():
 			$player.global_position = $utils/spawn_left.global_position
 
 
+func _physics_process(delta):
+	var cancel = Input.is_action_pressed("ui_cancel")
+	if cancel:
+		var menu = preload("res://scene/menu_pause.tscn").instance()
+		add_child(menu)
+
+
 func camera_set_limit():
 	var zone = $plateform.get_used_rect()
 	var cells_size = $plateform.cell_size
