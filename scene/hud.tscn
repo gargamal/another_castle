@@ -17,7 +17,7 @@ extra_spacing_char = 5
 extra_spacing_space = 2
 font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "game_over"
 tracks/0/type = "value"
 tracks/0/path = NodePath("ColorRect:modulate")
@@ -56,7 +56,7 @@ tracks/2/keys = {
 "values": [ true ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 120
 outline_size = 10
 extra_spacing_char = 6
@@ -137,7 +137,7 @@ custom_colors/font_outline_modulate = Color( 0.909804, 0.964706, 0.341176, 1 )
 text = "000 000 000 000"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
-anims/game_over = SubResource( 4 )
+anims/game_over = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 modulate = Color( 1, 1, 1, 0 )
@@ -157,7 +157,7 @@ margin_left = -219.0
 margin_top = -63.0
 margin_right = 219.0
 margin_bottom = 63.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.968627, 0.239216, 0.376471, 1 )
 custom_colors/font_outline_modulate = Color( 0.384314, 0.333333, 0.333333, 1 )
 custom_constants/line_spacing = 0
@@ -180,7 +180,7 @@ custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0.945098, 0.262745, 0.376471, 1 )
 custom_colors/font_color_hover = Color( 0.870588, 0.819608, 0.819608, 1 )
 custom_colors/font_color_pressed = Color( 0.168627, 0.160784, 0.160784, 1 )
-text = "restart"
+text = "Ok"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false

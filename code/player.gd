@@ -116,7 +116,7 @@ func movement_loop():
 		else:
 			vel.x = min(vel.x + ACCEL, max_speed)
 		dir = 1
-		$muzzle.position.x = 10
+		$muzzle.position.x = 30
 		$sprite.flip_h = false
 	elif dir_x == -1: # move left
 		if state == DASH:
@@ -124,7 +124,7 @@ func movement_loop():
 		else:
 			vel.x = max(vel.x - ACCEL, -max_speed)
 		dir = -1
-		$muzzle.position.x = -90
+		$muzzle.position.x = -170
 		$sprite.flip_h = true
 	else: # no move idle
 		vel.x = lerp(vel.x, 0, 0.25)

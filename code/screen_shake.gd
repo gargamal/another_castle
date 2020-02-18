@@ -5,10 +5,10 @@ onready var camera = get_parent()
 var old_position = Vector2()
 var amplitude = 0
 
-func start(amplitude, frequence, duration):
+func start(p_amplitude, frequence, duration):
 	randomize()
 	old_position = camera.offset
-	self.amplitude = amplitude
+	amplitude = p_amplitude
 	$frequence.wait_time = duration / frequence
 	$duration.wait_time = duration
 	$frequence.start()

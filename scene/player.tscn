@@ -5,8 +5,8 @@
 [ext_resource path="res://scene/screen_shake.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 26.2071
-height = 72.2752
+radius = 27.4529
+height = 104.624
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -150,10 +150,9 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 28.708, 63.7705 )
+extents = Vector2( 29.6415, 81.3306 )
 
 [node name="player" type="KinematicBody2D"]
-position = Vector2( 1, 0 )
 collision_layer = 2
 collision_mask = 9
 script = ExtResource( 2 )
@@ -165,11 +164,11 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 4
 hframes = 4
-frame = 2
+frame = 4
 region_rect = Rect2( 128, 128, 128, 128 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -1 )
+position = Vector2( -7, 4 )
 shape = SubResource( 1 )
 
 [node name="cam" type="Camera2D" parent="."]
@@ -191,11 +190,11 @@ anims/walk = SubResource( 9 )
 anims/walk_noham = SubResource( 10 )
 
 [node name="muzzle" type="Position2D" parent="."]
-position = Vector2( 35, -10 )
+position = Vector2( 35, 0 )
 
 [node name="hit_box" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
-position = Vector2( 0, -1 )
+position = Vector2( -7, 4 )
 shape = SubResource( 11 )
 [connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
