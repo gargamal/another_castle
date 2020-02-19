@@ -1,8 +1,8 @@
-extends "res://code/ennemy.gd"
+extends "res://code/enemy.gd"
 
 func _ready():
 	height_jump = 3000
 
-func _on_Timer_timeout():
-	play_enemy()
 
+func _on_delay_timeout():
+	play_enemy()

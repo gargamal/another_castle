@@ -34,7 +34,7 @@ func _ready():
 
 	camera_set_limit()
 	spawn_object($items, ["coin", "life", "cassoulet"], "picked")
-	spawn_object($enemies, ["pepito", "biboule", "walter", "hitty"])
+	spawn_object($enemies, ["pepito", "biboule", "walter", "hitty"], "enemy_death")
 	
 	match GLOBAL.direction:
 		GLOBAL.LEFT: 
@@ -77,9 +77,17 @@ func spawn_object(tile_map, list_name, signal_connect = ""):
 			if itm and itm.has_method("init"):
 				itm.init(pos + tile_map.cell_size / 2, type)
 				add_child(itm)
-				if signal_connect != "":
+				if signal_connect == "picked":
 					itm.connect(signal_connect, self, "_on_items_picked")
+				elif signal_connect == "enemy_death":
+					itm.connect(signal_connect, self, "_on_enemy_death")
 				
+
+
+func _on_enemy_death(value):
+	emit_signal("score_changed", value)
+	
+
 
 func _on_items_picked(body):
 	match body:

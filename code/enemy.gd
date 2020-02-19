@@ -19,11 +19,17 @@ var state = IDLE
 export (int) var height_jump = 1700
 export (int) var max_speed = 400
 export (int) var life = 10
+export (int) var delay_wait_time = 4
+export (int) var coin_value = 150
+export (int) var damage = 1
 
-var damage = 1
+
+signal enemy_death(value)
+
 
 func _ready():
 	randomize()
+	$delay.wait_time = delay_wait_time
 	
 
 func init(pos, type):
@@ -55,7 +61,12 @@ func change_state(new_state):
 			animation_play("jump_up")
 		JUMP_DOWN:
 			animation_play("jump_down")
-			
+		DEATH:
+			set_physics_process(false)
+			emit_signal("enemy_death", coin_value)
+			animation_play("death")
+			yield($anim, "animation_finished")
+			queue_free()
 
 func state_loop():
 	if state == IDLE and abs(vel.x) >= LIMIT_LOW_SPEED:
@@ -68,6 +79,8 @@ func state_loop():
 		change_state(JUMP_DOWN)
 	if state in [JUMP_DOWN, JUMP_UP] and is_on_floor():
 		change_state(IDLE)
+	if state == DEATH:
+		change_state(DEATH)
 	
 
 func movement_loop():
@@ -101,8 +114,4 @@ func hit(domage):
 	life -= domage
 	if life <= 0:
 		$anim.stop()
-		set_physics_process(false)
-		for i in range(0, 4):
-			yield(get_tree().create_timer(0.2), "timeout")
-			modulate = Color(1, 1, 1, 0.8 if i % 2 == 0 else 0.2)
-		queue_free()
+		change_state(DEATH)

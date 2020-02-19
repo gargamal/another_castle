@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://img/characters/ennemies_lvl_1.png" type="Texture" id=1]
+[ext_resource path="res://img/characters/enemies_lvl_1.png" type="Texture" id=1]
 [ext_resource path="res://code/hitty.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -84,7 +84,7 @@ __meta__ = {
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-vframes = 4
+vframes = 5
 hframes = 4
 frame = 15
 
@@ -100,6 +100,6 @@ anims/jump_down = SubResource( 3 )
 anims/jump_up = SubResource( 4 )
 anims/walk = SubResource( 5 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="delay" type="Timer" parent="."]
 autostart = true
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="delay" to="." method="_on_delay_timeout"]

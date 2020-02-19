@@ -10,6 +10,7 @@ var score
 #SIGNAL
 signal death_player
 
+
 func _ready():
 	life = 3
 	cassoulet = 0
@@ -23,16 +24,19 @@ func _process(delta):
 	$CanvasLayer/VBoxContainer/HBoxContainer3/score.text = str(score)
 
 
+func _on_enemy_death(value):
+	score += value
 
-func _on_level_A1_cassoulet_changed(value):
+
+func _on_level_cassoulet_changed(value):
 	cassoulet = min(cassoulet +  value, cassoulet_max)
 
 
-func _on_level_A1_life_changed(value):
+func _on_level_life_changed(value):
 	life = min(life + value, life_max)
 
 
-func _on_level_A1_score_changed(value):
+func _on_level_score_changed(value):
 	score += value
 
 
@@ -46,3 +50,4 @@ func _on_player_take_damage(value):
 
 func _on_Button_pressed():
 	get_tree().reload_current_scene()
+
