@@ -58,6 +58,8 @@ func _on_player_take_damage(value):
 		emit_signal("death_player")
 		Engine.time_scale = 0.5
 		$canvas/anim.play("game_over")
+		yield($canvas/anim, "animation_finished")
+		get_tree().reload_current_scene()
 
 
 func add_life(value):
@@ -74,8 +76,4 @@ func add_cassoulet(value):
 		$canvas/vb/hb_cassoulet/cassoulet.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
 		yield(get_tree().create_timer(0.2), "timeout")
 	$canvas/vb/hb_cassoulet/cassoulet.modulate = WHITE
-
-
-func _on_Button_pressed():
-	get_tree().reload_current_scene()
 

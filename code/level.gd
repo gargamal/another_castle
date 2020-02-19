@@ -32,6 +32,7 @@ func _ready():
 		"hitty": hitty_scene
 	}
 
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	camera_set_limit()
 	spawn_object($items, ["coin", "life", "cassoulet"], "picked")
 	spawn_object($enemies, ["pepito", "biboule", "walter", "hitty"], "enemy_death")
@@ -42,8 +43,10 @@ func _ready():
 		GLOBAL.RIGHT:
 			$player.global_position = $utils/spawn_left.global_position
 			
-	var menu = preload("res://scene/menu_general.tscn").instance()
-	add_child(menu)
+	if not GLOBAL.is_restart:
+		var menu = preload("res://scene/menu_general.tscn").instance()
+		add_child(menu)
+	GLOBAL.is_restart = false
 
 
 func _physics_process(delta):

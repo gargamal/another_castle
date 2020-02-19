@@ -11,6 +11,7 @@ func _on_menu_selected_item(value):
 			get_tree().paused = false
 		1:
 			get_tree().paused = false
+			GLOBAL.is_restart = true
 			get_tree().reload_current_scene()
 		2:
 			print("implement pause")

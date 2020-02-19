@@ -36,7 +36,7 @@ vframes = 4
 frame = 2
 
 [node name="quit" type="Sprite" parent="ColorRect/menu"]
-position = Vector2( 511.502, 557.544 )
+position = Vector2( 506.502, 557.544 )
 texture = ExtResource( 4 )
 vframes = 4
 frame = 3

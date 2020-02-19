@@ -20,7 +20,7 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_down"): next_position += 1
 	elif Input.is_action_just_pressed("ui_up"): next_position -= 1
-	elif Input.is_action_just_pressed("ui_select"):
+	elif Input.is_action_just_pressed("ui_accept"):
 		emit_signal("selected_item", cur_position)
 		set_process(false)
 		return
