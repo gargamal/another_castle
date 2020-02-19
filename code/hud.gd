@@ -28,12 +28,14 @@ func _on_enemy_death(value):
 	score += value
 
 
-func _on_level_cassoulet_changed(value):
-	cassoulet = min(cassoulet +  value, cassoulet_max)
+func _on_level_cassoulet_changed(value, quantity):
+	cassoulet = min(cassoulet +  quantity, cassoulet_max)
+	score += value
 
 
-func _on_level_life_changed(value):
-	life = min(life + value, life_max)
+func _on_level_life_changed(value, quantity):
+	life = min(life + quantity, life_max)
+	score += value
 
 
 func _on_level_score_changed(value):

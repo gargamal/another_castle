@@ -1,9 +1,25 @@
 extends Area2D
 
 
-signal picked(body)
+signal picked(body, coin_value, quantity)
 
 var _type
+
+export (int) var coin_life = 1000
+export (int) var coin_cassoulet = 500
+export (int) var coin = 100
+export (int) var quantity_life = 1
+export (int) var quantity_cassoulet = 10
+
+var dict_data = {}
+
+func _ready():
+	dict_data = {
+		"coin": [coin, 0],
+		"life": [coin_life, quantity_life],
+		"cassoulet": [coin_cassoulet, quantity_cassoulet]
+	}
+
 
 func init(pos, type):
 	position = pos
@@ -41,7 +57,7 @@ func body_entered():
 		
 	$Tween.start()
 	yield($Tween, "tween_completed")
-	emit_signal("picked", _type)
+	emit_signal("picked", _type, dict_data[_type][0], dict_data[_type][1])
 	
 	queue_free()
 

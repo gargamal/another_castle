@@ -1,8 +1,8 @@
 extends Node2D
 
 signal score_changed(value)
-signal life_changed(value)
-signal cassoulet_changed(value)
+signal life_changed(value, quantity)
+signal cassoulet_changed(value, quantity)
 
 
 onready var coin_scene = preload("res://scene/coin.tscn")
@@ -86,14 +86,13 @@ func spawn_object(tile_map, list_name, signal_connect = ""):
 
 func _on_enemy_death(value):
 	emit_signal("score_changed", value)
-	
 
 
-func _on_items_picked(body):
+func _on_items_picked(body, coin_value, quantity = 0):
 	match body:
-		"coin": emit_signal("score_changed", 100)
-		"life": emit_signal("life_changed", 1)
-		"cassoulet": emit_signal("cassoulet_changed", 10)
+		"coin": emit_signal("score_changed", coin_value)
+		"life": emit_signal("life_changed", coin_value, quantity)
+		"cassoulet": emit_signal("cassoulet_changed", coin_value, quantity)
 		
 
 func _on_exit_right_body_entered(body):
