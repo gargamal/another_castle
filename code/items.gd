@@ -3,6 +3,9 @@ extends Area2D
 
 signal picked(body, coin_value, quantity)
 
+
+var score_screen = preload("res://scene/socre_screen.tscn")
+
 var _type
 
 export (int) var coin_life = 1000
@@ -27,6 +30,10 @@ func init(pos, type):
 		
 
 func body_entered():
+	var inst = score_screen.instance()
+	get_parent().add_child(inst)
+	inst.start(position, dict_data[_type][0])
+	
 	$Tween.interpolate_property(
 		self, 
 		"position", 

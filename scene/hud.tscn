@@ -75,9 +75,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="canvas" type="CanvasLayer" parent="."]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+[node name="vb" type="VBoxContainer" parent="canvas"]
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 40.0
@@ -87,12 +87,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="hb_life" type="HBoxContainer" parent="canvas/vb"]
 margin_right = 640.0
 margin_bottom = 64.0
 rect_pivot_offset = Vector2( 231.944, 382.356 )
 
-[node name="life" type="TextureProgress" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+[node name="life" type="TextureProgress" parent="canvas/vb/hb_life"]
 margin_right = 640.0
 margin_bottom = 64.0
 max_value = 10.0
@@ -100,13 +100,13 @@ value = 5.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="hb_cassoulet" type="HBoxContainer" parent="canvas/vb"]
 margin_top = 68.0
 margin_right = 640.0
 margin_bottom = 132.0
 rect_pivot_offset = Vector2( 231.944, 382.356 )
 
-[node name="cassoulet" type="TextureProgress" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+[node name="cassoulet" type="TextureProgress" parent="canvas/vb/hb_cassoulet"]
 margin_right = 640.0
 margin_bottom = 64.0
 max_value = 10.0
@@ -114,20 +114,20 @@ value = 5.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 4 )
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+[node name="hb_score" type="HBoxContainer" parent="canvas/vb"]
 margin_top = 136.0
 margin_right = 640.0
 margin_bottom = 204.0
 rect_pivot_offset = Vector2( 231.944, 382.356 )
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer3"]
+[node name="title" type="Label" parent="canvas/vb/hb_score"]
 margin_right = 155.0
 margin_bottom = 68.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.952941, 0.956863, 0.333333, 1 )
 text = "Score : "
 
-[node name="score" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer3"]
+[node name="score" type="Label" parent="canvas/vb/hb_score"]
 margin_left = 159.0
 margin_right = 601.0
 margin_bottom = 68.0
@@ -136,10 +136,10 @@ custom_colors/font_color = Color( 0.917647, 0.572549, 0.0705882, 1 )
 custom_colors/font_outline_modulate = Color( 0.909804, 0.964706, 0.341176, 1 )
 text = "000 000 000 000"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="canvas"]
 anims/game_over = SubResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="canvas"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -148,7 +148,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+[node name="Label" type="Label" parent="canvas/ColorRect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -166,7 +166,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="CanvasLayer"]
+[node name="Button" type="Button" parent="canvas"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
@@ -185,4 +185,4 @@ flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="canvas/Button" to="." method="_on_Button_pressed"]

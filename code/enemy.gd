@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var score_screen = preload("res://scene/socre_screen.tscn")
+
 
 const GRAVITY = 5000
 const UP = Vector2(0, -1) # indique le plafond
@@ -64,6 +66,9 @@ func change_state(new_state):
 		DEATH:
 			set_physics_process(false)
 			emit_signal("enemy_death", coin_value)
+			var inst = score_screen.instance()
+			get_parent().add_child(inst)
+			inst.start(position, coin_value)
 			animation_play("death")
 			yield($anim, "animation_finished")
 			queue_free()
