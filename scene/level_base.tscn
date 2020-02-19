@@ -687,7 +687,7 @@ position = Vector2( 1, 0 )
 tile_set = SubResource( 51 )
 cell_size = Vector2( 128, 128 )
 format = 1
-tile_data = PoolIntArray( 131077, 2, 0 )
+tile_data = PoolIntArray( 131076, 3, 0, 131077, 2, 0, 131078, 1, 0, 131079, 0, 0 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1, 0 )

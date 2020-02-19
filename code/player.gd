@@ -77,7 +77,7 @@ func change_state(new_state):
 			change_state(IDLE)
 		DEATH:
 			set_physics_process(false)
-			rotation_degrees = -90
+			animation_play("death")
 
 
 func state_loop():

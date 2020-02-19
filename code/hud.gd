@@ -53,11 +53,11 @@ func add_score(value):
 
 
 func _on_player_take_damage(value):
-	add_life(-life)
+	add_life(-value)
 	if life <= 0:
 		emit_signal("death_player")
 		Engine.time_scale = 0.5
-		$CanvasLayer/AnimationPlayer.play("game_over")
+		$canvas/anim.play("game_over")
 
 
 func add_life(value):

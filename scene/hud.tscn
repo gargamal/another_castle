@@ -136,7 +136,7 @@ custom_colors/font_color = Color( 0.917647, 0.572549, 0.0705882, 1 )
 custom_colors/font_outline_modulate = Color( 0.909804, 0.964706, 0.341176, 1 )
 text = "000 000 000 000"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="canvas"]
+[node name="anim" type="AnimationPlayer" parent="canvas"]
 anims/game_over = SubResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="canvas"]
