@@ -22,7 +22,7 @@ onready var hammer = preload("res://scene/hammer.tscn")
 onready var img_dash = preload("res://scene/dash.tscn")
 
 export (float) var dalay_time = 0.4
-export (int) var height_jump = 1700
+export (int) var height_jump = 2000
 export (int) var max_speed = 400
 
 #SIGNALS

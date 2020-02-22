@@ -9,9 +9,9 @@ const ACCEL = 100
 const LIMIT_LOW_SPEED = 5.0
 
 var vel = Vector2()
-var with_jump = true
+var with_jump = false
 var jump = false
-var dir_x
+var dir_x = 1
 var _type
 
 # state
@@ -65,6 +65,7 @@ func change_state(new_state):
 			animation_play("jump_down")
 		DEATH:
 			set_physics_process(false)
+			$collision.disabled = true
 			emit_signal("enemy_death", coin_value)
 			var inst = score_screen.instance()
 			get_parent().add_child(inst)

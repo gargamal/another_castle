@@ -666,12 +666,10 @@ margin_left = -1.0
 margin_right = 39.0
 
 [node name="decors" type="TileMap" parent="."]
-position = Vector2( -10, 0 )
 tile_set = SubResource( 1 )
 format = 1
 
 [node name="plateform" type="TileMap" parent="."]
-position = Vector2( -53, 0 )
 tile_set = SubResource( 49 )
 collision_mask = 15
 format = 1
@@ -680,14 +678,11 @@ tile_data = PoolIntArray( -393216, 0, 6, -393199, 0, 6, -327680, 0, 65542, -3276
 [node name="items" type="TileMap" parent="."]
 tile_set = SubResource( 50 )
 format = 1
-tile_data = PoolIntArray( 327683, 1, 0, 327684, 2, 0, 327685, 0, 0 )
 
 [node name="enemies" type="TileMap" parent="."]
-position = Vector2( 1, 0 )
 tile_set = SubResource( 51 )
 cell_size = Vector2( 128, 128 )
 format = 1
-tile_data = PoolIntArray( 131076, 3, 0, 131077, 2, 0, 131078, 1, 0, 131079, 0, 0 )
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1, 0 )
