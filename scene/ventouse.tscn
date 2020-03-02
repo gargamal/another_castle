@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://img/characters/hammer.png" type="Texture" id=1]
+[ext_resource path="res://code/ventouse.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 14.2444, 30.4459 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "shoot"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 5, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.08, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="ventouse" type="KinematicBody2D"]
+position = Vector2( 90, -7 )
+scale = Vector2( 0.8, 0.8 )
+collision_layer = 4
+collision_mask = 9
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.460615 )
+position = Vector2( 0, -0.273575 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 2
+frame = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 12.0198, 11.1129 )
+shape = SubResource( 1 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/shoot = SubResource( 2 )

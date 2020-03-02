@@ -31,12 +31,14 @@ scale = Vector2( 1.5, 1.5 )
 collision_layer = 4
 collision_mask = 11
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-vframes = 2
+vframes = 3
 hframes = 2
-frame = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 45.3294, 6.14847 )

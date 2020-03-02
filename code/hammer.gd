@@ -11,7 +11,7 @@ var pos_mem = Vector2(0, 0)
 func ready():
 	add_to_group("weapon")
 
-func _process(delta):
+func _physics_process(delta):
 	var collision = move_and_collide(vel * delta, true, true, is_fallen)
 	move_and_slide(Vector2(0, 0), UP) # permet de fixer la normal et de connaitre la position du sol
 	

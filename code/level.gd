@@ -4,7 +4,6 @@ signal score_changed(value)
 signal life_changed(value, quantity)
 signal cassoulet_changed(value, quantity)
 
-
 onready var coin_scene = preload("res://scene/coin.tscn")
 onready var life_scene = preload("res://scene/life.tscn")
 onready var cassoulet_scene = preload("res://scene/cassoulet.tscn")

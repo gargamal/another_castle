@@ -11,15 +11,20 @@ const COLOR_IMPAIR = Color(0, 1, 0, 0.2)
 const WHITE = Color(1, 1, 1, 1)
 
 #SIGNAL
-signal death_player
+signal death_player()
+signal transform_super_mariolle()
+signal transform_jean_balais()
 
 
 func _ready():
-	life = 3
+	life = 9
 	cassoulet = 0
 	score = 0
 	Engine.time_scale = 1.0
-
+	if life == life_max:
+		emit_signal("transform_super_mariolle")
+	else:
+		emit_signal("transform_jean_balais")
 
 func _process(delta):
 	$canvas/vb/hb_life/life.value = life
@@ -64,16 +69,23 @@ func _on_player_take_damage(value):
 
 func add_life(value):
 	life = min(life + value, life_max)
-	for i in range(0, 5):
-		$canvas/vb/hb_life/life.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
-		yield(get_tree().create_timer(0.2), "timeout")
-	$canvas/vb/hb_life/life.modulate = WHITE
+	
+	if life == life_max:
+		emit_signal("transform_super_mariolle")
+	else:
+		emit_signal("transform_jean_balais")
+		for i in range(0, 5):
+			$canvas/vb/hb_life/life.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
+			yield(get_tree().create_timer(0.2), "timeout")
+		$canvas/vb/hb_life/life.modulate = WHITE
 
 
 func add_cassoulet(value):
 	cassoulet = min(cassoulet + value, cassoulet_max)
-	for i in range(0, 5):
-		$canvas/vb/hb_cassoulet/cassoulet.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
-		yield(get_tree().create_timer(0.2), "timeout")
-	$canvas/vb/hb_cassoulet/cassoulet.modulate = WHITE
+	
+	if cassoulet < cassoulet_max:
+		for i in range(0, 5):
+			$canvas/vb/hb_cassoulet/cassoulet.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
+			yield(get_tree().create_timer(0.2), "timeout")
+		$canvas/vb/hb_cassoulet/cassoulet.modulate = WHITE
 

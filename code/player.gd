@@ -9,7 +9,10 @@ const LIMIT_LOW_SPEED = 5.0
 var vel = Vector2()
 var dir = 1
 var dir_x
-var has_hammer = true
+enum {WITH_HAMMER, NO_HAMMER}
+var weapon = WITH_HAMMER
+enum {JEAN_BALAIS, SUPER_MARIOLLE}
+var transformation = JEAN_BALAIS
 # state
 enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH}
 var state = IDLE
@@ -17,13 +20,16 @@ var dashing = false
 var throwing = false
 var throw_hammer = false
 var is_hurting = false
+var is_cassoulet_effect = false
+var can_shoot_ventouse = true
 
+onready var ventouse = preload("res://scene/ventouse.tscn")
 onready var hammer = preload("res://scene/hammer.tscn")
 onready var img_dash = preload("res://scene/dash.tscn")
 
-export (float) var dalay_time = 0.4
-export (int) var height_jump = 2000
-export (int) var max_speed = 400
+var dalay_time = 0.4
+var height_jump = 2000
+var max_speed = 400
 
 #SIGNALS
 signal take_damage(value)
@@ -40,44 +46,65 @@ func _physics_process(delta):
 	vel = move_and_slide(vel, UP)
 
 
-func animation_play(animation):
+func animation_play(animation, with_tranformation_state = false):
+	if with_tranformation_state:
+		if transformation == SUPER_MARIOLLE:
+			animation += "_mariolle"
+		elif transformation == JEAN_BALAIS and weapon == NO_HAMMER:
+			animation += "_noham"
+	
 	if $anim.current_animation != animation:
 		$anim.play(animation)
 
 
 func change_state(new_state):
-	state = new_state
-	match state:
-		IDLE:
-			animation_play("idle" if has_hammer else "idle_noham")
-		WALK:
-			animation_play("walk" if has_hammer else "walk_noham")
-		JUMP_UP:
-			animation_play("jump_up" if has_hammer else "jump_up_noham")
-		JUMP_DOWN:
-			animation_play("jump_down" if has_hammer else "jump_down_noham")
-		DASH:
-			for x in range(0, 5):
-				var i = img_dash.instance()
-				i.init(position, $sprite)
-				get_parent().add_child(i)
-				yield(get_tree().create_timer(0.05), "timeout")
-				
-			dashing = false
-			change_state(IDLE)
-		THROW:
-			animation_play("throw_hammer")
-			yield(get_tree().create_timer(0.2), "timeout")
-			throwing = false
-			
-			var ham = hammer.instance()
-			ham.start($muzzle.global_position, dir)
-			get_parent().add_child(ham)
-			has_hammer = false
-			change_state(IDLE)
-		DEATH:
-			set_physics_process(false)
-			animation_play("death")
+	
+	if state != new_state:
+		state = new_state
+		
+		match state:
+			IDLE: animation_play("idle", true)
+			WALK: animation_play("walk", true)
+			JUMP_UP: animation_play("jump_up", true)
+			JUMP_DOWN: animation_play("jump_down", true)
+			DASH:
+				for x in range(0, 5):
+					var i = img_dash.instance()
+					i.init(position, $sprite)
+					get_parent().add_child(i)
+					yield(get_tree().create_timer(0.05), "timeout")
+					
+				dashing = false
+				change_state(IDLE)
+			THROW:
+				if transformation == SUPER_MARIOLLE:
+					play_ventouse_animation()
+				else:
+					play_hammer_animation()
+					throwing = false
+					weapon = NO_HAMMER
+				change_state(IDLE)
+			DEATH:
+				set_physics_process(false)
+				animation_play("death")
+
+
+func play_ventouse_animation():
+	if can_shoot_ventouse:
+		can_shoot_ventouse = false
+		var vent = ventouse.instance()
+		vent.start($muzzle.global_position, dir)
+		get_parent().add_child(vent)
+		$delay_shoot.start()
+	
+
+func play_hammer_animation():
+	animation_play("throw_hammer")
+	yield(get_tree().create_timer(0.2), "timeout")
+	
+	var ham = hammer.instance()
+	ham.start($muzzle.global_position, dir)
+	get_parent().add_child(ham)
 
 
 func state_loop():
@@ -93,7 +120,9 @@ func state_loop():
 		change_state(IDLE)
 	if state == WALK and dashing:
 		change_state(DASH)
-	if throw_hammer and has_hammer and not throwing and not is_on_wall():
+	if transformation == JEAN_BALAIS and throw_hammer and weapon != NO_HAMMER and not throwing and not is_on_wall():
+		change_state(THROW)
+	if transformation == SUPER_MARIOLLE and throw_hammer:
 		change_state(THROW)
 
 
@@ -116,7 +145,7 @@ func movement_loop():
 		else:
 			vel.x = min(vel.x + ACCEL, max_speed)
 		dir = 1
-		$muzzle.position.x = 30
+		$muzzle.position.x = 0 if transformation != SUPER_MARIOLLE else 60
 		$sprite.flip_h = false
 	elif dir_x == -1: # move left
 		if state == DASH:
@@ -124,7 +153,7 @@ func movement_loop():
 		else:
 			vel.x = max(vel.x - ACCEL, -max_speed)
 		dir = -1
-		$muzzle.position.x = -170
+		$muzzle.position.x = -160 if transformation != SUPER_MARIOLLE else -60
 		$sprite.flip_h = true
 	else: # no move idle
 		vel.x = lerp(vel.x, 0, 0.25)
@@ -134,7 +163,7 @@ func movement_loop():
 		
 		
 func take_hammer():
-	has_hammer = true
+	weapon = WITH_HAMMER
 	throwing = false
 	change_state(IDLE)
 
@@ -157,3 +186,24 @@ func _on_hit_box_body_entered(body):
 
 func _on_HUD_death_player():
 	change_state(DEATH)
+
+
+func _on_HUD_transform_jean_balais():
+	if transformation == SUPER_MARIOLLE:
+		transformation = JEAN_BALAIS
+		animation_play("transform_to_jean_balais_noham" if weapon == NO_HAMMER else "transform_to_jean_balais")
+		yield(get_tree().create_timer(0.2), "timeout")
+		change_state(IDLE)
+
+
+func _on_HUD_transform_super_mariolle():
+	if transformation != SUPER_MARIOLLE:
+		transformation = SUPER_MARIOLLE
+		animation_play("transform_to_mariolle")
+		yield(get_tree().create_timer(0.2), "timeout")
+		change_state(IDLE)
+
+
+func _on_delay_shoot_timeout():
+	can_shoot_ventouse = true
+
