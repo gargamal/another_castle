@@ -14,6 +14,8 @@ func _physics_process(delta):
 		set_physics_process(false)
 		if collision.collider.has_method("hit"):
 			collision.collider.hit(10)
+		$anim.play("touch")
+		yield($anim, "animation_finished")
 		queue_free()
 
 

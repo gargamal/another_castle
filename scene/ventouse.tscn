@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://img/characters/hammer.png" type="Texture" id=1]
 [ext_resource path="res://code/ventouse.gd" type="Script" id=2]
@@ -35,6 +35,34 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=3]
+resource_name = "touch"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 5 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="ventouse" type="KinematicBody2D"]
 position = Vector2( 90, -7 )
 scale = Vector2( 0.8, 0.8 )
@@ -46,7 +74,7 @@ __meta__ = {
 }
 
 [node name="sprite" type="Sprite" parent="."]
-modulate = Color( 1, 1, 1, 0.460615 )
+modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 0, -0.273575 )
 texture = ExtResource( 1 )
 vframes = 3
@@ -60,3 +88,4 @@ shape = SubResource( 1 )
 
 [node name="anim" type="AnimationPlayer" parent="."]
 anims/shoot = SubResource( 2 )
+anims/touch = SubResource( 3 )
