@@ -7,21 +7,20 @@ const DASHING_FACTOR = 3
 const LIMIT_LOW_SPEED = 5.0
 
 var vel = Vector2()
+var gravity = GRAVITY
 var dir = 1
 var dir_x
-enum {WITH_HAMMER, NO_HAMMER}
-var weapon = WITH_HAMMER
-enum {JEAN_BALAIS, SUPER_MARIOLLE}
-var transformation = JEAN_BALAIS
+
 # state
-enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH}
+enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH, CASSOULET}
 var state = IDLE
 var dashing = false
 var throwing = false
 var throw_hammer = false
 var is_hurting = false
-var is_cassoulet_effect = false
 var can_shoot_ventouse = true
+var can_use_cassoulet = true
+var cassoulet = false
 
 onready var ventouse = preload("res://scene/ventouse.tscn")
 onready var hammer = preload("res://scene/hammer.tscn")
@@ -33,6 +32,7 @@ var max_speed = 400
 
 #SIGNALS
 signal take_damage(value)
+signal cassoulet_consume(quantity)
 
 
 func _ready():
@@ -42,15 +42,15 @@ func _ready():
 func _physics_process(delta):
 	movement_loop()
 	state_loop()
-	vel.y += GRAVITY * delta
+	vel.y += gravity * delta
 	vel = move_and_slide(vel, UP)
 
 
 func animation_play(animation, with_tranformation_state = false):
 	if with_tranformation_state:
-		if transformation == SUPER_MARIOLLE:
+		if GLOBAL.is_super_mariolle():
 			animation += "_mariolle"
-		elif transformation == JEAN_BALAIS and weapon == NO_HAMMER:
+		elif GLOBAL.is_jean_du_balais() and not GLOBAL.has_hammer():
 			animation += "_noham"
 	
 	if $anim.current_animation != animation:
@@ -77,16 +77,20 @@ func change_state(new_state):
 				dashing = false
 				change_state(IDLE)
 			THROW:
-				if transformation == SUPER_MARIOLLE:
+				if GLOBAL.is_super_mariolle():
 					play_ventouse_animation()
 				else:
 					play_hammer_animation()
 					throwing = false
-					weapon = NO_HAMMER
+					GLOBAL.weapon = GLOBAL.NO_HAMMER
 				change_state(IDLE)
 			DEATH:
 				set_physics_process(false)
 				animation_play("death")
+			CASSOULET:
+				emit_signal("cassoulet_consume", 10)
+				animation_play("cassoulet_effect", true)
+				$delay_cassoulet.start()
 
 
 func play_ventouse_animation():
@@ -96,7 +100,7 @@ func play_ventouse_animation():
 		vent.start($muzzle.global_position, dir)
 		get_parent().add_child(vent)
 		$delay_shoot.start()
-	
+
 
 func play_hammer_animation():
 	animation_play("throw_hammer")
@@ -120,18 +124,23 @@ func state_loop():
 		change_state(IDLE)
 	if state == WALK and dashing:
 		change_state(DASH)
-	if transformation == JEAN_BALAIS and throw_hammer and weapon != NO_HAMMER and not throwing and not is_on_wall():
+	if GLOBAL.is_jean_du_balais() and throw_hammer and GLOBAL.has_hammer() and not throwing and not is_on_wall():
 		change_state(THROW)
-	if transformation == SUPER_MARIOLLE and throw_hammer:
+	if GLOBAL.is_super_mariolle() and throw_hammer:
 		change_state(THROW)
+	if gravity == 0 and GLOBAL.has_cassoulet() and can_use_cassoulet:
+		change_state(CASSOULET)
 
 
 func movement_loop():
 	var right = Input.is_action_pressed("ui_right")
 	var left = Input.is_action_pressed("ui_left")
+	var up = Input.is_action_pressed("ui_up")
+	var down = Input.is_action_pressed("ui_down")
 	var jump = Input.is_action_just_pressed("ui_accept")
 	var dash = Input.is_action_just_pressed("dash")
 	throw_hammer = Input.is_action_just_pressed("ui_throw_hammer")
+	cassoulet = Input.is_action_just_pressed("ui_cassoulet")
 
 	if not dashing:
 		dir_x = int(right) - int(left)
@@ -145,7 +154,7 @@ func movement_loop():
 		else:
 			vel.x = min(vel.x + ACCEL, max_speed)
 		dir = 1
-		$muzzle.position.x = 0 if transformation != SUPER_MARIOLLE else 60
+		$muzzle.position.x = 0 if GLOBAL.is_jean_du_balais() else 60
 		$sprite.flip_h = false
 	elif dir_x == -1: # move left
 		if state == DASH:
@@ -153,7 +162,7 @@ func movement_loop():
 		else:
 			vel.x = max(vel.x - ACCEL, -max_speed)
 		dir = -1
-		$muzzle.position.x = -160 if transformation != SUPER_MARIOLLE else -60
+		$muzzle.position.x = -160 if GLOBAL.is_jean_du_balais() else -60
 		$sprite.flip_h = true
 	else: # no move idle
 		vel.x = lerp(vel.x, 0, 0.25)
@@ -161,9 +170,18 @@ func movement_loop():
 	if jump and is_on_floor():
 		vel.y = -height_jump
 		
+	if cassoulet and GLOBAL.has_cassoulet() and can_use_cassoulet:
+		gravity = 0
+		
+	if gravity == 0 and down :
+		vel.y =  min(vel.y + ACCEL, max_speed)
+	if gravity == 0 and up :
+		vel.y = max(vel.y - ACCEL, -max_speed)
+	if gravity == 0 and not down and not up:
+		vel.y = lerp(vel.y, 0, 0.25)
 		
 func take_hammer():
-	weapon = WITH_HAMMER
+	GLOBAL.weapon = GLOBAL.HAS_HAMMER
 	throwing = false
 	change_state(IDLE)
 
@@ -189,16 +207,16 @@ func _on_HUD_death_player():
 
 
 func _on_HUD_transform_jean_balais():
-	if transformation == SUPER_MARIOLLE:
-		transformation = JEAN_BALAIS
-		animation_play("transform_to_jean_balais_noham" if weapon == NO_HAMMER else "transform_to_jean_balais")
+	if GLOBAL.is_super_mariolle():
+		GLOBAL.transformation = GLOBAL.JEAN_BALAIS
+		animation_play("transform_to_jean_balais_noham" if not GLOBAL.has_hammer() else "transform_to_jean_balais")
 		yield(get_tree().create_timer(0.2), "timeout")
 		change_state(IDLE)
 
 
 func _on_HUD_transform_super_mariolle():
-	if transformation != SUPER_MARIOLLE:
-		transformation = SUPER_MARIOLLE
+	if GLOBAL.is_jean_du_balais():
+		GLOBAL.transformation = GLOBAL.SUPER_MARIOLLE
 		animation_play("transform_to_mariolle")
 		yield(get_tree().create_timer(0.2), "timeout")
 		change_state(IDLE)
@@ -207,3 +225,8 @@ func _on_HUD_transform_super_mariolle():
 func _on_delay_shoot_timeout():
 	can_shoot_ventouse = true
 
+
+func _on_delay_cassoulet_timeout():
+	can_use_cassoulet = true
+	gravity = GRAVITY
+	change_state(IDLE)
