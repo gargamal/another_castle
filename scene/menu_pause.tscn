@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://code/menu_pause.gd" type="Script" id=1]
+[ext_resource path="res://font/Niagaraphobia-Bro3.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://scene/menu.tscn" type="PackedScene" id=3]
-[ext_resource path="res://img/menu/menu_pause.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 128
+use_filter = true
+extra_spacing_top = 10
+extra_spacing_bottom = 10
+extra_spacing_char = 10
+font_data = ExtResource( 2 )
 
 [node name="menu_pause" type="CanvasLayer"]
 script = ExtResource( 1 )
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="background" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.470588 )
@@ -15,29 +23,53 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu" parent="ColorRect" instance=ExtResource( 3 )]
+[node name="menu" parent="background" instance=ExtResource( 3 )]
 pause_mode = 2
+margin_left = -225.0
+margin_top = -316.0
+margin_right = 225.0
+margin_bottom = 316.0
 
-[node name="continue" type="Sprite" parent="ColorRect/menu"]
-position = Vector2( 500.491, 201.785 )
-texture = ExtResource( 4 )
-vframes = 4
+[node name="continue" type="Label" parent="background/menu"]
+margin_right = 450.0
+margin_bottom = 155.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.87451, 0.188235, 0.188235, 1 )
+custom_colors/font_color_shadow = Color( 0.85098, 0.733333, 0.733333, 1 )
+text = "Continue"
+align = 1
+valign = 1
 
-[node name="restart" type="Sprite" parent="ColorRect/menu"]
-position = Vector2( 506.846, 318.95 )
-texture = ExtResource( 4 )
-vframes = 4
-frame = 1
+[node name="restart" type="Label" parent="background/menu"]
+margin_top = 159.0
+margin_right = 450.0
+margin_bottom = 314.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.87451, 0.188235, 0.188235, 1 )
+custom_colors/font_color_shadow = Color( 0.85098, 0.733333, 0.733333, 1 )
+text = "Restart"
+align = 1
+valign = 1
 
-[node name="options" type="Sprite" parent="ColorRect/menu"]
-position = Vector2( 505.846, 437.024 )
-texture = ExtResource( 4 )
-vframes = 4
-frame = 2
+[node name="option" type="Label" parent="background/menu"]
+margin_top = 318.0
+margin_right = 450.0
+margin_bottom = 473.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.87451, 0.188235, 0.188235, 1 )
+custom_colors/font_color_shadow = Color( 0.85098, 0.733333, 0.733333, 1 )
+text = "Option"
+align = 1
+valign = 1
 
-[node name="quit" type="Sprite" parent="ColorRect/menu"]
-position = Vector2( 506.502, 557.544 )
-texture = ExtResource( 4 )
-vframes = 4
-frame = 3
-[connection signal="selected_item" from="ColorRect/menu" to="." method="_on_menu_selected_item"]
+[node name="quit2" type="Label" parent="background/menu"]
+margin_top = 477.0
+margin_right = 450.0
+margin_bottom = 632.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.87451, 0.188235, 0.188235, 1 )
+custom_colors/font_color_shadow = Color( 0.85098, 0.733333, 0.733333, 1 )
+text = "Quit"
+align = 1
+valign = 1
+[connection signal="selected_item" from="background/menu" to="." method="_on_menu_selected_item"]
