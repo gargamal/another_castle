@@ -10,9 +10,6 @@ signal transform_super_mariolle()
 signal transform_jean_balais()
 
 func _ready():
-	GLOBAL.life = 9
-	GLOBAL.cassoulet = 0
-	GLOBAL.score = 0
 	Engine.time_scale = 1.0
 	if GLOBAL.life == GLOBAL.LIFE_MAX:
 		emit_signal("transform_super_mariolle")

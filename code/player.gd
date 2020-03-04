@@ -137,8 +137,8 @@ func movement_loop():
 	var left = Input.is_action_pressed("ui_left")
 	var up = Input.is_action_pressed("ui_up")
 	var down = Input.is_action_pressed("ui_down")
-	var jump = Input.is_action_just_pressed("ui_accept")
-	var dash = Input.is_action_just_pressed("dash")
+	var jump = Input.is_action_just_pressed("ui_jump")
+	var dash = Input.is_action_just_pressed("ui_dash")
 	throw_hammer = Input.is_action_just_pressed("ui_throw_hammer")
 	cassoulet = Input.is_action_just_pressed("ui_cassoulet")
 

@@ -11,7 +11,6 @@ var lst = []
 
 func _ready():
 	var screen_size = get_viewport_rect().size
-	print(get_viewport_rect().size)
 	
 	lst = get_children()
 	for i in range(1, lst.size()):
