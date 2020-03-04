@@ -12,7 +12,7 @@ var dir = 1
 var dir_x
 
 # state
-enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH, CASSOULET}
+enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH, CASSOULET, TRANSFORM_JEAN_DU_BALAIS, TRANSFORM_SUPER_MARIOLLE}
 var state = IDLE
 var dashing = false
 var throwing = false
@@ -54,6 +54,7 @@ func animation_play(animation, with_tranformation_state = false):
 			animation += "_noham"
 	
 	if $anim.current_animation != animation:
+		$anim.current_animation = animation
 		$anim.play(animation)
 
 
@@ -91,6 +92,16 @@ func change_state(new_state):
 				emit_signal("cassoulet_consume", 10)
 				animation_play("cassoulet_effect", true)
 				$delay_cassoulet.start()
+			TRANSFORM_SUPER_MARIOLLE:
+				GLOBAL.transformation = GLOBAL.SUPER_MARIOLLE
+				animation_play("transform_to_mariolle")
+				yield(get_tree().create_timer(0.2), "timeout")
+				change_state(IDLE)
+			TRANSFORM_JEAN_DU_BALAIS:
+				GLOBAL.transformation = GLOBAL.JEAN_BALAIS
+				animation_play("transform_to_jean_balais_noham" if not GLOBAL.has_hammer() else "transform_to_jean_balais")
+				yield(get_tree().create_timer(0.2), "timeout")
+				change_state(IDLE)
 
 
 func play_ventouse_animation():
@@ -112,24 +123,26 @@ func play_hammer_animation():
 
 
 func state_loop():
-	if state == IDLE and abs(vel.x) >= LIMIT_LOW_SPEED:
-		change_state(WALK)
-	if state == WALK and abs(vel.x) < LIMIT_LOW_SPEED:
-		change_state(IDLE)
-	if state in [IDLE, WALK] and not is_on_floor():
-		change_state(JUMP_UP)
-	if state == JUMP_UP and vel.y > 0:
-		change_state(JUMP_DOWN)
-	if state in [JUMP_DOWN, JUMP_UP] and is_on_floor():
-		change_state(IDLE)
-	if state == WALK and dashing:
-		change_state(DASH)
+	if  gravity > 0:
+		if state == IDLE and abs(vel.x) >= LIMIT_LOW_SPEED:
+			change_state(WALK)
+		if state == WALK and abs(vel.x) < LIMIT_LOW_SPEED:
+			change_state(IDLE)
+		if state in [IDLE, WALK] and not is_on_floor() and gravity > 0:
+			change_state(JUMP_UP)
+		if state == JUMP_UP and vel.y > 0:
+			change_state(JUMP_DOWN)
+		if state in [JUMP_DOWN, JUMP_UP] and is_on_floor():
+			change_state(IDLE)
+		if state == WALK and dashing:
+			change_state(DASH)
+	elif state == IDLE or GLOBAL.has_cassoulet() and can_use_cassoulet:
+			change_state(CASSOULET)
+			
 	if GLOBAL.is_jean_du_balais() and throw_hammer and GLOBAL.has_hammer() and not throwing and not is_on_wall():
 		change_state(THROW)
 	if GLOBAL.is_super_mariolle() and throw_hammer:
 		change_state(THROW)
-	if gravity == 0 and GLOBAL.has_cassoulet() and can_use_cassoulet:
-		change_state(CASSOULET)
 
 
 func movement_loop():
@@ -208,19 +221,13 @@ func _on_HUD_death_player():
 
 func _on_HUD_transform_jean_balais():
 	if GLOBAL.is_super_mariolle():
-		GLOBAL.transformation = GLOBAL.JEAN_BALAIS
-		animation_play("transform_to_jean_balais_noham" if not GLOBAL.has_hammer() else "transform_to_jean_balais")
-		yield(get_tree().create_timer(0.2), "timeout")
-		change_state(IDLE)
+		change_state(TRANSFORM_JEAN_DU_BALAIS)
 
 
 func _on_HUD_transform_super_mariolle():
 	if GLOBAL.is_jean_du_balais():
-		GLOBAL.transformation = GLOBAL.SUPER_MARIOLLE
-		animation_play("transform_to_mariolle")
-		yield(get_tree().create_timer(0.2), "timeout")
-		change_state(IDLE)
-
+		change_state(TRANSFORM_SUPER_MARIOLLE)
+		
 
 func _on_delay_shoot_timeout():
 	can_shoot_ventouse = true
