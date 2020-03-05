@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://img/characters/jean-balais.png" type="Texture" id=1]
 [ext_resource path="res://code/player.gd" type="Script" id=2]
@@ -226,7 +226,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=15]
-length = 0.2
+length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
@@ -234,10 +234,58 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.15 ),
+"times": PoolRealArray( 0, 0.05 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ 4, 12 ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "throw_hammer_cassoulet"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 20, 34 ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "throw_ventouse"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 25, 32 ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "throw_ventouse_cassoulet"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 30, 33 ]
 }
 
 [sub_resource type="Animation" id=16]
@@ -352,9 +400,9 @@ __meta__ = {
 
 [node name="sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
-vframes = 8
+vframes = 9
 hframes = 4
-frame = 21
+frame = 33
 region_rect = Rect2( 128, 128, 128, 128 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
@@ -383,6 +431,9 @@ anims/jump_up = SubResource( 12 )
 anims/jump_up_mariolle = SubResource( 13 )
 anims/jump_up_noham = SubResource( 14 )
 anims/throw_hammer = SubResource( 15 )
+anims/throw_hammer_cassoulet = SubResource( 23 )
+anims/throw_ventouse = SubResource( 24 )
+anims/throw_ventouse_cassoulet = SubResource( 25 )
 anims/transform_to_jean_balais = SubResource( 16 )
 anims/transform_to_jean_balais_noham = SubResource( 17 )
 anims/transform_to_mariolle = SubResource( 18 )

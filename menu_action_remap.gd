@@ -41,7 +41,7 @@ func _input(event):
 				$background/menu/ui_up.new_input_key(event.scancode, "ui_up")
 			UI_JUMP:
 				$background/menu/ui_jump.new_input_key(event.scancode, "ui_jump")
-			UI_THROW: 
+			UI_THROW:
 				$background/menu/ui_throw_hammer.new_input_key(event.scancode, "ui_throw_hammer")
 				
 		is_waiting_action = false
@@ -72,12 +72,15 @@ func _on_menu_selected_item(value):
 		UI_JUMP:
 			$background/menu/ui_jump.waiting()
 			$delay.start()
-		UI_THROW: 
+		UI_THROW:
 			$background/menu/ui_throw_hammer.waiting()
 			$delay.start()
 		QUIT:
-			var inst = get_parent().get_node("menu_general/background/menu")
-			if inst == null:
+			var inst = null
+			if get_parent().has_node("menu_general/background/menu"):
+				inst = get_parent().get_node("menu_general/background/menu")
+				
+			elif get_parent().has_node("menu_pause/background/menu"):
 				inst = get_parent().get_node("menu_pause/background/menu")
 				
 			if inst:
