@@ -14,6 +14,7 @@ const CASSOULET_MAX = 100
 var cassoulet = 0
 var score = 0
 
+var dict_param = []
 
 enum {HAS_HAMMER, NO_HAMMER}
 var weapon = HAS_HAMMER
@@ -28,35 +29,36 @@ func _ready():
 	var file_save = File.new()
 	
 	if not file_save.file_exists(FILE_CONFIGURATION):
-		save_data(file_save)
+		save_data(file_save, true)
 	else:
 		load_data(file_save)
 
 
-func add_input_event(action, dictionary):	
+func add_input_event(action):	
 	var event = InputEventKey.new()
 	InputMap.action_erase_events(action)
-	event.scancode = dictionary[action]
+	event.scancode = int(dict_param[action])
 	InputMap.action_add_event(action, event)
+
 
 func load_data(file_save):
 	file_save.open(FILE_CONFIGURATION, File.READ)
-	var dict_load = parse_json(file_save.get_line())
-	life = int(dict_load["life"])
-	cassoulet = int(dict_load["cassoulet"])
-	score = int(dict_load["score"])
-	add_input_event("ui_right", dict_load)
-	add_input_event("ui_left", dict_load)
-	add_input_event("ui_up", dict_load)
-	add_input_event("ui_down", dict_load)
-	add_input_event("ui_jump", dict_load)
-	add_input_event("ui_dash", dict_load)
-	add_input_event("ui_throw_hammer", dict_load)
-	add_input_event("ui_cassoulet", dict_load)
+	dict_param = parse_json(file_save.get_line())
+	life = int(dict_param["life"])
+	cassoulet = int(dict_param["cassoulet"])
+	score = int(dict_param["score"])
+	add_input_event("ui_right")
+	add_input_event("ui_left")
+	add_input_event("ui_up")
+	add_input_event("ui_down")
+	add_input_event("ui_jump")
+	add_input_event("ui_dash")
+	add_input_event("ui_throw_hammer")
+	add_input_event("ui_cassoulet")
 	file_save.close()
 
 
-func save_data(file_save):
+func save_data(file_save = File.new(), default = false):
 	var dict_save = {
 			"life": life,
 			"cassoulet": cassoulet,
@@ -71,7 +73,7 @@ func save_data(file_save):
 			"ui_cassoulet": InputMap.get_action_list("ui_cassoulet")[0].scancode,
 		}
 	file_save.open(FILE_CONFIGURATION, File.WRITE)
-	file_save.store_line(to_json(dict_save))
+	file_save.store_line(to_json(dict_save if default else dict_param))
 	file_save.close()
 
 
