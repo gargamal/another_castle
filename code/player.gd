@@ -68,7 +68,7 @@ func change_state(new_state):
 		DASH:
 			for x in range(0, 5):
 				var i = img_dash.instance()
-				i.init(position, $sprite)
+				i.init(position, 17)
 				get_parent().add_child(i)
 				yield(get_tree().create_timer(0.05), "timeout")
 				

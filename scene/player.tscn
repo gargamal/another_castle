@@ -402,7 +402,7 @@ __meta__ = {
 texture = ExtResource( 1 )
 vframes = 9
 hframes = 4
-frame = 33
+frame = 17
 region_rect = Rect2( 128, 128, 128, 128 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
