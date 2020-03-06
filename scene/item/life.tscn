@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://img/levels/tx_items.png" type="Texture" id=1]
-[ext_resource path="res://code/life.gd" type="Script" id=2]
+[ext_resource path="res://code/life.gd" type="Script" id=1]
+[ext_resource path="res://img/levels/tx_items.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.2622, 25.8193 )
@@ -26,13 +26,13 @@ tracks/0/keys = {
 [node name="life" type="Area2D"]
 collision_layer = 16
 collision_mask = 2
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 vframes = 3
 hframes = 4
 frame = 4

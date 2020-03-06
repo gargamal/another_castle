@@ -4,6 +4,9 @@ const COLOR_PAIR = Color(1, 0, 0, 0.8)
 const COLOR_IMPAIR = Color(0, 1, 0, 0.2)
 const WHITE = Color(1, 1, 1, 1)
 
+var arrow = load("res://img/cursor/arrow.png")
+var beam = load("res://img/cursor/beam.png")
+
 #SIGNAL
 signal death_player()
 signal transform_super_mariolle()
@@ -11,6 +14,9 @@ signal transform_jean_balais()
 
 func _ready():
 	Engine.time_scale = 1.0
+	Input.set_custom_mouse_cursor(arrow)
+	Input.set_custom_mouse_cursor(beam, Input.CURSOR_IBEAM)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	if GLOBAL.life == GLOBAL.LIFE_MAX:
 		emit_signal("transform_super_mariolle")
 	else:

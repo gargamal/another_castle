@@ -102,6 +102,15 @@ func save_score(file_save = File.new(), default = false):
 		["Sarah Conord", 30000],
 		["Jule César", 20000],
 		["Gontrand Fromage", 10000],
+		["Rogger Cartable", 9000],
+		["Gorge Dubois", 8000],
+		["Philibert Pimpaul", 7000],
+		["Merphy Monkey", 6000],
+		["Lorel Hardy", 5000],
+		["Philips Siemens", 4000],
+		["M Porpre", 3000],
+		["Walter Canard", 2000],
+		["Louis Vin", 1000],
 	]
 	file_save.open(FILE_SCORE, File.WRITE)
 	file_save.store_line(to_json(lst_save if default else lst_score))

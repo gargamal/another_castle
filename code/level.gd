@@ -5,13 +5,13 @@ signal life_changed(value, quantity)
 signal cassoulet_changed(value, quantity)
 signal time_decreases(value)
 
-onready var coin_scene = preload("res://scene/coin.tscn")
-onready var life_scene = preload("res://scene/life.tscn")
-onready var cassoulet_scene = preload("res://scene/cassoulet.tscn")
-onready var biboule_scene = preload("res://scene/biboule.tscn")
-onready var pepito_scene = preload("res://scene/pepito.tscn")
-onready var hitty_scene = preload("res://scene/hitty.tscn")
-onready var walter_scene = preload("res://scene/walter.tscn")
+onready var coin_scene = preload("res://scene/item/coin.tscn")
+onready var life_scene = preload("res://scene/item/life.tscn")
+onready var cassoulet_scene = preload("res://scene/item/cassoulet.tscn")
+onready var biboule_scene = preload("res://scene/character/biboule.tscn")
+onready var pepito_scene = preload("res://scene/character/pepito.tscn")
+onready var hitty_scene = preload("res://scene/character/hitty.tscn")
+onready var walter_scene = preload("res://scene/character/walter.tscn")
 
 
 export(String, FILE, "*.tscn") var next_right
@@ -44,10 +44,10 @@ func _ready():
 			$player.global_position = $utils/spawn_left.global_position
 			
 	if not GLOBAL.is_restart:
-		var menu = preload("res://scene/menu_general.tscn").instance()
+		var menu = preload("res://scene/menu/menu_general.tscn").instance()
 		add_child(menu)
 	GLOBAL.is_restart = false
-	GLOBAL.time_left = 300
+	GLOBAL.time_left = 1000
 	$utils/time_left.start()
 	
 	add_cave_background()
@@ -65,7 +65,7 @@ func add_cave_background():
 func _physics_process(delta):
 	var cancel = Input.is_action_pressed("ui_cancel")
 	if cancel:
-		var menu = preload("res://scene/menu_pause.tscn").instance()
+		var menu = preload("res://scene/menu/menu_pause.tscn").instance()
 		add_child(menu)
 
 

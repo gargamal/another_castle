@@ -16,7 +16,7 @@ func _on_menu_selected_item(value):
 			get_tree().reload_current_scene()
 			queue_free()
 		2:
-			var menu = preload("res://scene/menu_action_remap.tscn").instance()
+			var menu = preload("res://scene/menu/menu_action_remap.tscn").instance()
 			get_tree().current_scene.add_child(menu)
 		3:
 			get_tree().quit()

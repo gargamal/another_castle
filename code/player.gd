@@ -22,9 +22,9 @@ var can_shoot_ventouse = true
 var can_use_cassoulet = true
 var cassoulet = false
 
-onready var ventouse = preload("res://scene/ventouse.tscn")
-onready var hammer = preload("res://scene/hammer.tscn")
-onready var img_dash = preload("res://scene/dash.tscn")
+onready var ventouse = preload("res://scene/item/ventouse.tscn")
+onready var hammer = preload("res://scene/item/hammer.tscn")
+onready var img_dash = preload("res://scene/item/dash.tscn")
 
 var dalay_time = 0.4
 var height_jump = 2000

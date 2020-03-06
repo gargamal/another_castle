@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://code/menu_pause.gd" type="Script" id=1]
-[ext_resource path="res://font/Niagaraphobia-Bro3.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://scene/menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scene/menu/menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://font/Niagaraphobia-Bro3.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -10,7 +10,7 @@ use_filter = true
 extra_spacing_top = 10
 extra_spacing_bottom = 10
 extra_spacing_char = 10
-font_data = ExtResource( 2 )
+font_data = ExtResource( 3 )
 
 [node name="menu_pause" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -23,7 +23,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu" parent="background" instance=ExtResource( 3 )]
+[node name="menu" parent="background" instance=ExtResource( 2 )]
 pause_mode = 2
 margin_left = -225.0
 margin_top = -316.0

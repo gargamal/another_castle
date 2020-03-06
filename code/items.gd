@@ -4,7 +4,7 @@ extends Area2D
 signal picked(body, coin_value, quantity)
 
 
-var score_screen = preload("res://scene/score_screen.tscn")
+var score_screen = preload("res://scene/item/score_screen.tscn")
 
 var _type
 
