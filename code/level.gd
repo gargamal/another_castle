@@ -12,6 +12,7 @@ onready var biboule_scene = preload("res://scene/character/biboule.tscn")
 onready var pepito_scene = preload("res://scene/character/pepito.tscn")
 onready var hitty_scene = preload("res://scene/character/hitty.tscn")
 onready var walter_scene = preload("res://scene/character/walter.tscn")
+onready var score_screen = preload("res://scene/item/score_screen.tscn")
 
 
 export(String, FILE, "*.tscn") var next_right
@@ -42,25 +43,9 @@ func _ready():
 			$player.global_position = $utils/spawn_right.global_position
 		GLOBAL.RIGHT:
 			$player.global_position = $utils/spawn_left.global_position
-			
-	if not GLOBAL.is_restart:
-		var menu = preload("res://scene/menu/menu_general.tscn").instance()
-		add_child(menu)
-	GLOBAL.is_restart = false
-	GLOBAL.time_left = 1000
-	$utils/time_left.start()
 	
-	add_cave_background()
+	GLOBAL.reset_time()
 
-
-func add_cave_background():
-	for i in range(0, 16):
-		for j in range(0, 16):
-			var new_node = get_node("cave").duplicate()
-			add_child(new_node)
-			move_child(new_node, 1)
-			new_node.offset = Vector2(1920 * i, 1280 * j)
-	
 
 func _physics_process(delta):
 	var cancel = Input.is_action_pressed("ui_cancel")
@@ -114,7 +99,14 @@ func _on_items_picked(body, coin_value, quantity = 0):
 func _on_exit_right_body_entered(body):
 	if body.name == "player" and next_right != null:
 		GLOBAL.set_direction(GLOBAL.RIGHT)
+		var score_time_left = GLOBAL.add_time_left_to_score()
+		emit_signal("score_changed", score_time_left)
+		var inst_score = score_screen.instance()
+		add_child(inst_score)
+		inst_score.start($player.global_position, score_time_left)
+		yield(get_tree().create_timer(1.0), "timeout")
 		get_tree().change_scene(next_right)
+		queue_free()
 
 
 func _on_exit_left_body_entered(body):
