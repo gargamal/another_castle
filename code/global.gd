@@ -1,20 +1,20 @@
 extends Node
 
-
 enum {LEFT, RIGHT, UP, DOWN}
-
+enum {NAME, SCORE}
 
 var direction = RIGHT setget set_direction
 var is_restart = false
-
 
 const LIFE_MAX = 10
 var life = 3
 const CASSOULET_MAX = 100
 var cassoulet = 0
 var score = 0
+var time_left = 0
 
 var dict_param = []
+var lst_score = []
 
 enum {HAS_HAMMER, NO_HAMMER}
 var weapon = HAS_HAMMER
@@ -23,16 +23,24 @@ var transformation = JEAN_BALAIS
 
 
 const FILE_CONFIGURATION = "user://configuration.save"
+const FILE_SCORE = "user://score.save"
 
 
 func _ready():
-	var file_save = File.new()
-	
-	if not file_save.file_exists(FILE_CONFIGURATION):
-		save_data(file_save, true)
+	var file = File.new()
+	if not file.file_exists(FILE_CONFIGURATION):
+		save_data(file, true)
+		load_data()
 	else:
-		load_data(file_save)
-
+		load_data(file)
+		
+	file = File.new()
+	if not file.file_exists(FILE_SCORE):
+		save_score(file,true)
+		load_score()
+	else:
+		load_score(file)
+	
 
 func add_input_event(action):	
 	var event = InputEventKey.new()
@@ -41,9 +49,9 @@ func add_input_event(action):
 	InputMap.action_add_event(action, event)
 
 
-func load_data(file_save):
-	file_save.open(FILE_CONFIGURATION, File.READ)
-	dict_param = parse_json(file_save.get_line())
+func load_data(file_load = File.new()):
+	file_load.open(FILE_CONFIGURATION, File.READ)
+	dict_param = parse_json(file_load.get_line())
 	life = int(dict_param["life"])
 	cassoulet = int(dict_param["cassoulet"])
 	score = int(dict_param["score"])
@@ -55,8 +63,13 @@ func load_data(file_save):
 	add_input_event("ui_dash")
 	add_input_event("ui_throw_hammer")
 	add_input_event("ui_cassoulet")
-	file_save.close()
+	file_load.close()
 
+
+func load_score(file_load = File.new()):
+	file_load.open(FILE_SCORE, File.READ)
+	lst_score = parse_json(file_load.get_line())
+	file_load.close()
 
 func save_data(file_save = File.new(), default = false):
 	var dict_save = {
@@ -76,6 +89,56 @@ func save_data(file_save = File.new(), default = false):
 	file_save.store_line(to_json(dict_save if default else dict_param))
 	file_save.close()
 
+
+func save_score(file_save = File.new(), default = false):
+	var lst_save = [
+		["Hercule Poivrot", 100000],
+		["Henry Potier", 90000],
+		["Martin Lepan", 80000],
+		["René Dupont", 70000],
+		["Louis Durant", 60000],
+		["Harry Coverre", 50000],
+		["Jean Bono", 40000],
+		["Sarah Conord", 30000],
+		["Jule César", 20000],
+		["Gontrand Fromage", 10000],
+	]
+	file_save.open(FILE_SCORE, File.WRITE)
+	file_save.store_line(to_json(lst_save if default else lst_score))
+	file_save.close()
+
+
+func can_add_score():
+	for line_score in lst_score:
+		if line_score[SCORE] < score:
+			return true
+	return false
+
+
+func add_new_score(name):
+	var index = 0
+	for line_score in lst_score:
+		if line_score[SCORE] < score:
+			re_populate_score(index, name)
+			break
+		index  += 1
+
+
+func re_populate_score(index, name):
+	var lst_save = []
+	
+	for i in range(0, index):
+		lst_save.append(lst_score[i])
+	lst_save.append([name, score])
+	for i in range(index, lst_score.size() - 1):
+		lst_save.append(lst_score[i])
+		
+	lst_score = lst_save
+	save_score()
+
+
+func is_time_out():
+	return time_left <= 0
 
 func set_direction(dir):
 	direction = dir

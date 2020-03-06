@@ -3,6 +3,7 @@ extends Node2D
 signal score_changed(value)
 signal life_changed(value, quantity)
 signal cassoulet_changed(value, quantity)
+signal time_decreases(value)
 
 onready var coin_scene = preload("res://scene/coin.tscn")
 onready var life_scene = preload("res://scene/life.tscn")
@@ -46,6 +47,8 @@ func _ready():
 		var menu = preload("res://scene/menu_general.tscn").instance()
 		add_child(menu)
 	GLOBAL.is_restart = false
+	GLOBAL.time_left = 300
+	$utils/time_left.start()
 	
 	add_cave_background()
 
@@ -119,3 +122,8 @@ func _on_exit_left_body_entered(body):
 		GLOBAL.set_direction(GLOBAL.LEFT)
 		get_tree().change_scene(next_left)
 
+
+func _on_time_left_timeout():
+	emit_signal("time_decreases", 1)
+	if (GLOBAL.is_time_out()):
+		$utils/time_left.stop()

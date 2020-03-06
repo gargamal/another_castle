@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var score_screen = preload("res://scene/socre_screen.tscn")
+var score_screen = preload("res://scene/score_screen.tscn")
 
 
 const GRAVITY = 5000

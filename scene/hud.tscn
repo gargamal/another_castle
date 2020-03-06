@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://img/hud/cassoulet_box_over.png" type="Texture" id=1]
 [ext_resource path="res://img/hud/life_potions_over.png" type="Texture" id=2]
@@ -21,7 +21,7 @@ font_data = ExtResource( 6 )
 resource_name = "game_over"
 length = 2.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("ColorRect:modulate")
+tracks/0/path = NodePath("background:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -33,7 +33,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("ColorRect:visible")
+tracks/1/path = NodePath("background:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -49,6 +49,19 @@ tracks/1/keys = {
 size = 120
 outline_size = 10
 extra_spacing_char = 6
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 64
+extra_spacing_space = 5
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 64
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 64
 font_data = ExtResource( 6 )
 
 [node name="HUD" type="Control"]
@@ -114,17 +127,39 @@ text = "Score : "
 
 [node name="score" type="Label" parent="canvas/vb/hb_score"]
 margin_left = 159.0
-margin_right = 601.0
+margin_right = 187.0
 margin_bottom = 68.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0.917647, 0.572549, 0.0705882, 1 )
 custom_colors/font_outline_modulate = Color( 0.909804, 0.964706, 0.341176, 1 )
-text = "000 000 000 000"
+text = "0"
+
+[node name="hb_time" type="HBoxContainer" parent="canvas/vb"]
+margin_top = 208.0
+margin_right = 640.0
+margin_bottom = 276.0
+rect_pivot_offset = Vector2( 231.944, 382.356 )
+
+[node name="title" type="Label" parent="canvas/vb/hb_time"]
+margin_right = 133.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0.952941, 0.956863, 0.333333, 1 )
+text = "Time : "
+
+[node name="time" type="Label" parent="canvas/vb/hb_time"]
+margin_left = 137.0
+margin_right = 165.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.917647, 0.572549, 0.0705882, 1 )
+custom_colors/font_outline_modulate = Color( 0.909804, 0.964706, 0.341176, 1 )
+text = "0"
 
 [node name="anim" type="AnimationPlayer" parent="canvas"]
 anims/game_over = SubResource( 3 )
 
-[node name="ColorRect" type="ColorRect" parent="canvas"]
+[node name="background" type="ColorRect" parent="canvas"]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -133,15 +168,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="canvas/ColorRect"]
+[node name="vb_gameover" type="VBoxContainer" parent="canvas/background"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -219.0
-margin_top = -63.0
-margin_right = 219.0
-margin_bottom = 63.0
+margin_left = -250.0
+margin_top = -133.0
+margin_right = 250.0
+margin_bottom = 133.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="gameover" type="Label" parent="canvas/background/vb_gameover"]
+margin_right = 500.0
+margin_bottom = 126.0
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.968627, 0.239216, 0.376471, 1 )
 custom_colors/font_outline_modulate = Color( 0.384314, 0.333333, 0.333333, 1 )
@@ -150,3 +192,34 @@ text = "Game Over"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="titlename" type="Label" parent="canvas/background/vb_gameover"]
+visible = false
+margin_top = 130.0
+margin_right = 500.0
+margin_bottom = 198.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.87451, 0.188235, 0.188235, 1 )
+custom_colors/font_color_shadow = Color( 0.85098, 0.733333, 0.733333, 1 )
+text = "Enter your name"
+align = 1
+valign = 1
+
+[node name="name" type="LineEdit" parent="canvas/background/vb_gameover"]
+visible = false
+margin_top = 130.0
+margin_right = 500.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 500, 64 )
+custom_fonts/font = SubResource( 6 )
+align = 1
+
+[node name="ok" type="Button" parent="canvas/background/vb_gameover"]
+visible = false
+margin_top = 130.0
+margin_right = 500.0
+margin_bottom = 204.0
+rect_min_size = Vector2( 100, 72 )
+custom_fonts/font = SubResource( 7 )
+text = "OK"
+[connection signal="pressed" from="canvas/background/vb_gameover/ok" to="." method="_on_ok_pressed"]
