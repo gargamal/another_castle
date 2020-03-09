@@ -11,7 +11,8 @@ var life = 3
 const CASSOULET_MAX = 100
 var cassoulet = 0
 var score = 0
-var time_left = 0
+const MAX_TIME_LEFT = 1000
+var time_left = MAX_TIME_LEFT
 
 var dict_param = []
 var lst_score = []
@@ -167,3 +168,17 @@ func has_hammer():
 
 func has_cassoulet():
 	return cassoulet > 0
+
+
+func add_time_left_to_score():
+	return time_left * 100
+
+
+func reset_time():
+	time_left = MAX_TIME_LEFT
+
+
+func restart():
+	is_restart = true
+	score = 0
+	time_left = MAX_TIME_LEFT

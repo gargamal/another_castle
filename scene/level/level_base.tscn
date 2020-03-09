@@ -14,8 +14,6 @@
 [ext_resource path="res://img/characters/enemies_lvl_1.png" type="Texture" id=12]
 [ext_resource path="res://img/levels/tx_items.png" type="Texture" id=13]
 
-
-
 [sub_resource type="TileSet" id=1]
 0/name = "ceilling"
 0/texture = ExtResource( 8 )
@@ -813,7 +811,7 @@ centered = false
 [node name="utils" type="Node2D" parent="."]
 
 [node name="spawn_left" type="Position2D" parent="utils"]
-position = Vector2( 53.0951, 367.9 )
+position = Vector2( 100, 370 )
 
 [node name="spawn_right" type="Position2D" parent="utils"]
 position = Vector2( 955.063, 355.52 )
@@ -851,7 +849,11 @@ autostart = true
 [connection signal="cassoulet_changed" from="." to="HUD" method="_on_level_cassoulet_changed"]
 [connection signal="life_changed" from="." to="HUD" method="_on_level_life_changed"]
 [connection signal="score_changed" from="." to="HUD" method="_on_level_score_changed"]
+[connection signal="time_decreases" from="." to="HUD" method="_on_level_time_decreases"]
 [connection signal="death_player" from="HUD" to="player" method="_on_HUD_death_player"]
+[connection signal="transform_jean_balais" from="HUD" to="player" method="_on_HUD_transform_jean_balais"]
+[connection signal="transform_super_mariolle" from="HUD" to="player" method="_on_HUD_transform_super_mariolle"]
+[connection signal="cassoulet_consume" from="player" to="HUD" method="_on_player_cassoulet_consume"]
 [connection signal="take_damage" from="player" to="HUD" method="_on_player_take_damage"]
 [connection signal="body_entered" from="utils/exit_right" to="." method="_on_exit_right_body_entered"]
 [connection signal="body_entered" from="utils/exit_left" to="." method="_on_exit_left_body_entered"]

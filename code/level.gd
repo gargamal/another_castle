@@ -53,7 +53,6 @@ func _physics_process(delta):
 		var menu = preload("res://scene/menu/menu_pause.tscn").instance()
 		add_child(menu)
 
-
 func camera_set_limit():
 	var zone = $plateform.get_used_rect()
 	var cells_size = $plateform.cell_size

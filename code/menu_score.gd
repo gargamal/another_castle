@@ -14,11 +14,7 @@ func _ready():
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_cancel"):
-		var inst = null
 		if get_parent().has_node("menu_general/background/menu"):
-			inst = get_parent().get_node("menu_general/background/menu")
-		if inst:
-			inst.set_process(true)
-			
+			get_parent().get_node("menu_general/background/menu").set_process(true)
 		queue_free()
 		return 
