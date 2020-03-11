@@ -180,5 +180,7 @@ func reset_time():
 
 func restart():
 	is_restart = true
+	life = 3
+	cassoulet = 0
 	score = 0
 	time_left = MAX_TIME_LEFT
