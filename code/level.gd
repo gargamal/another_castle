@@ -30,7 +30,7 @@ func _ready():
 		"pepito": pepito_scene,
 		"biboule": biboule_scene,
 		"walter": walter_scene,
-		"hitty": hitty_scene
+		"hitty": hitty_scene,
 	}
 
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

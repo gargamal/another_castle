@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://font/Niagaraphobia-Bro3.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://code/socre_screen.gd" type="Script" id=2]
+[ext_resource path="res://img/levels/ligth.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 62
@@ -26,3 +27,10 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+offset = Vector2( 40, 30 )
+texture_scale = 0.15
+color = Color( 0.847059, 0.847059, 0.733333, 1 )
+mode = 2

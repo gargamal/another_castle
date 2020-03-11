@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://code/life.gd" type="Script" id=1]
 [ext_resource path="res://img/levels/tx_items.png" type="Texture" id=2]
+[ext_resource path="res://img/levels/ligth.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 20.2622, 25.8193 )
@@ -48,4 +49,10 @@ playback_speed = 0.7
 anims/default = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+texture_scale = 0.1
+color = Color( 0.756863, 0.909804, 0.768627, 1 )
+energy = 0.5
 [connection signal="body_entered" from="." to="." method="_on_life_body_entered"]
