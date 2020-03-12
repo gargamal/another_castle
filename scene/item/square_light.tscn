@@ -15,4 +15,3 @@ texture = ExtResource( 2 )
 mode = 2
 shadow_enabled = true
 shadow_filter = 1
-shadow_filter_smooth = 0.5

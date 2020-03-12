@@ -22,7 +22,7 @@ export (int) var height_jump = 1700
 export (int) var max_speed = 400
 export (int) var life = 10
 export (int) var delay_wait_time = 4
-export (int) var coin_value = 150
+export (int) var coin_value = 1500
 export (int) var damage = 1
 
 

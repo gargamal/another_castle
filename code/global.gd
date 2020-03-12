@@ -171,7 +171,7 @@ func has_cassoulet():
 
 
 func add_time_left_to_score():
-	return time_left * 100
+	return time_left * 10
 
 
 func reset_time():

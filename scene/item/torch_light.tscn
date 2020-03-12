@@ -34,7 +34,6 @@ position = Vector2( -2, 0 )
 texture = ExtResource( 1 )
 color = Color( 0.858824, 0.666667, 0.529412, 1 )
 shadow_filter = 1
-shadow_filter_smooth = 0.5
 
 [node name="anim" type="AnimationPlayer" parent="."]
 autoplay = "fire"
