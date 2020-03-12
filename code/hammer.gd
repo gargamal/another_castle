@@ -16,6 +16,8 @@ func _physics_process(delta):
 	move_and_slide(Vector2(0, 0), UP) # permet de fixer la normal et de connaitre la position du sol
 	
 	if collision:
+		var player = get_parent().get_node("player")
+		
 		if not has_hitting:
 			if collision.collider.has_method("hit"):
 				collision.collider.hit(10)
@@ -27,10 +29,25 @@ func _physics_process(delta):
 			$sprite.frame = 2
 			is_fallen = true
 		elif collision.collider.name == "plateform" and pos_mem == position and not is_on_floor(): 
-			get_parent().get_node("player").take_hammer()
+			player.take_hammer()
+			queue_free()
+		elif player and is_not_on_limit(player.get_node("cam")):
+			player.take_hammer()
 			queue_free()
 			
 	pos_mem = position
+
+
+func is_not_on_limit(camera):
+	print (camera.limit_left)
+	print (camera.limit_top)
+	print (camera.limit_right)
+	print (camera.limit_bottom)
+	print(position)
+	print(camera.limit_left >= position.x or camera.limit_right <= position.x \
+		or camera.limit_top >= position.y or camera.limit_bottom <= position.y)
+	return camera.limit_left >= position.x or camera.limit_right <= position.x \
+		or camera.limit_top >= position.y or camera.limit_bottom <= position.y;
 
 
 func start(pos, dir):

@@ -176,10 +176,12 @@ func add_time_left_to_score():
 
 func reset_time():
 	time_left = MAX_TIME_LEFT
+	weapon = HAS_HAMMER
 
 
 func restart():
 	is_restart = true
+	weapon = HAS_HAMMER
 	life = 3
 	cassoulet = 0
 	score = 0

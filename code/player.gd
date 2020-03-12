@@ -15,7 +15,6 @@ var dir_x
 enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH, CASSOULET, TRANSFORM_JEAN_DU_BALAIS, TRANSFORM_SUPER_MARIOLLE}
 var state = IDLE
 var dashing = false
-var throwing = false
 var throw_hammer = false
 var is_hurting = false
 var can_shoot_ventouse = true
@@ -79,7 +78,6 @@ func change_state(new_state):
 				play_ventouse_animation()
 			else:
 				play_hammer_animation()
-				throwing = false
 				GLOBAL.weapon = GLOBAL.NO_HAMMER
 		DEATH:
 			set_physics_process(false)
@@ -143,7 +141,7 @@ func state_loop():
 	elif state == IDLE or GLOBAL.has_cassoulet() and can_use_cassoulet:
 			change_state(CASSOULET)
 	
-	if GLOBAL.is_jean_du_balais() and throw_hammer and GLOBAL.has_hammer() and not throwing and not is_on_wall():
+	if GLOBAL.is_jean_du_balais() and throw_hammer and GLOBAL.has_hammer() and not is_on_wall():
 		change_state(THROW)
 	if GLOBAL.is_super_mariolle() and throw_hammer:
 		change_state(THROW)
@@ -199,7 +197,6 @@ func movement_loop():
 		
 func take_hammer():
 	GLOBAL.weapon = GLOBAL.HAS_HAMMER
-	throwing = false
 	change_state(IDLE)
 
 
