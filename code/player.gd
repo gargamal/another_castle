@@ -108,7 +108,7 @@ func play_ventouse_animation():
 		yield(get_tree().create_timer(0.1), "timeout")
 		
 		var vent = ventouse.instance()
-		vent.start($muzzle.global_position, dir)
+		vent.start(self, $muzzle.global_position, dir, dir_y)
 		get_parent().add_child(vent)
 		$delay_shoot.start()
 		

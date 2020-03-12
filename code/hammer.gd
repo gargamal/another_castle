@@ -39,13 +39,6 @@ func _physics_process(delta):
 
 
 func is_not_on_limit(camera):
-	print (camera.limit_left)
-	print (camera.limit_top)
-	print (camera.limit_right)
-	print (camera.limit_bottom)
-	print(position)
-	print(camera.limit_left >= position.x or camera.limit_right <= position.x \
-		or camera.limit_top >= position.y or camera.limit_bottom <= position.y)
 	return camera.limit_left >= position.x or camera.limit_right <= position.x \
 		or camera.limit_top >= position.y or camera.limit_bottom <= position.y;
 
