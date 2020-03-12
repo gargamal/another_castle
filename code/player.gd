@@ -10,6 +10,7 @@ var vel = Vector2()
 var gravity = GRAVITY
 var dir = 1
 var dir_x
+var dir_y
 
 # state
 enum {IDLE, WALK, JUMP_UP, JUMP_DOWN, THROW, DEATH, DASH, CASSOULET, TRANSFORM_JEAN_DU_BALAIS, TRANSFORM_SUPER_MARIOLLE}
@@ -119,10 +120,11 @@ func play_hammer_animation():
 	yield(get_tree().create_timer(0.1), "timeout")
 	
 	var ham = hammer.instance()
-	ham.start($muzzle.global_position, dir)
+	ham.start(self, $muzzle.global_position, dir, dir_y)
 	get_parent().add_child(ham)
 	
 	change_state(IDLE)
+
 
 func state_loop():
 	if  gravity > 0:
@@ -160,6 +162,8 @@ func movement_loop():
 	if not dashing:
 		dir_x = int(right) - int(left)
 		
+	dir_y = int(down) - int(up)
+		
 	if dash and state == WALK:
 		dashing = true
 
@@ -194,7 +198,8 @@ func movement_loop():
 		vel.y = max(vel.y - ACCEL, -max_speed)
 	if gravity == 0 and not down and not up:
 		vel.y = lerp(vel.y, 0, 0.25)
-		
+
+
 func take_hammer():
 	GLOBAL.weapon = GLOBAL.HAS_HAMMER
 	change_state(IDLE)

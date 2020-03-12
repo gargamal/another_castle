@@ -7,6 +7,7 @@ var vel = Vector2()
 var has_hitting = false
 var is_fallen = false
 var pos_mem = Vector2(0, 0)
+var player
 
 func ready():
 	add_to_group("weapon")
@@ -15,9 +16,7 @@ func _physics_process(delta):
 	var collision = move_and_collide(vel * delta, true, true, is_fallen)
 	move_and_slide(Vector2(0, 0), UP) # permet de fixer la normal et de connaitre la position du sol
 	
-	if collision:
-		var player = get_parent().get_node("player")
-		
+	if collision:		
 		if not has_hitting:
 			if collision.collider.has_method("hit"):
 				collision.collider.hit(10)
@@ -31,9 +30,10 @@ func _physics_process(delta):
 		elif collision.collider.name == "plateform" and pos_mem == position and not is_on_floor(): 
 			player.take_hammer()
 			queue_free()
-		elif player and is_not_on_limit(player.get_node("cam")):
-			player.take_hammer()
-			queue_free()
+			
+	if player and is_not_on_limit(player.get_node("cam")):
+		player.take_hammer()
+		queue_free()
 			
 	pos_mem = position
 
@@ -50,13 +50,14 @@ func is_not_on_limit(camera):
 		or camera.limit_top >= position.y or camera.limit_bottom <= position.y;
 
 
-func start(pos, dir):
+func start(_player, pos, dir, diagonal):
 	position = pos
-	vel = Vector2(speed * dir, 0)
+	vel = Vector2(speed * dir, speed * diagonal)
 	has_hitting = false
 	is_fallen = false
 	pos_mem = Vector2(0, 0)
 	$anim.play("turn")
+	player = _player
 
 
 func _on_touch_box_body_entered(body):
