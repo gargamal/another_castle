@@ -13,6 +13,8 @@ var cassoulet = 0
 var score = 0
 const MAX_TIME_LEFT = 1000
 var time_left = MAX_TIME_LEFT
+var nb_tick_cassoulet = 0
+var MAX_TICK_CASSOULET = 100
 
 var dict_param = []
 var lst_score = []

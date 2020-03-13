@@ -1,15 +1,11 @@
-[gd_scene load_steps=65 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://scene/character/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/hud/hud.tscn" type="PackedScene" id=2]
 [ext_resource path="res://img/levels/right.png" type="Texture" id=3]
 [ext_resource path="res://img/levels/left.png" type="Texture" id=4]
 [ext_resource path="res://code/level.gd" type="Script" id=5]
-[ext_resource path="res://img/levels/bk_sky_1.png" type="Texture" id=6]
-[ext_resource path="res://img/levels/bk_cloud_1.png" type="Texture" id=7]
 [ext_resource path="res://img/levels/tx_decors_1.png" type="Texture" id=8]
-[ext_resource path="res://img/levels/bk_plain_1.png" type="Texture" id=9]
-[ext_resource path="res://img/levels/bk_mountains_1.png" type="Texture" id=10]
 [ext_resource path="res://img/levels/tx_level_1.png" type="Texture" id=11]
 [ext_resource path="res://img/characters/enemies_lvl_1.png" type="Texture" id=12]
 [ext_resource path="res://img/levels/tx_items.png" type="Texture" id=13]
@@ -767,46 +763,6 @@ format = 1
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1, 0 )
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="sky" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -780 )
-motion_scale = Vector2( 0.2, 0.2 )
-motion_mirroring = Vector2( 1920, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/sky"]
-position = Vector2( -4, -34.0001 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="mountains" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -1060 )
-motion_scale = Vector2( 0.6, 0.6 )
-motion_mirroring = Vector2( 1920, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/mountains"]
-texture = ExtResource( 10 )
-centered = false
-
-[node name="clouds" type="ParallaxLayer" parent="ParallaxBackground"]
-modulate = Color( 1, 1, 1, 0.705882 )
-position = Vector2( 0, -800 )
-motion_scale = Vector2( 0.8, 0.8 )
-motion_mirroring = Vector2( 1920, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/clouds"]
-texture = ExtResource( 7 )
-centered = false
-
-[node name="plain" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( 0, -750 )
-motion_scale = Vector2( 0.9, 0.9 )
-motion_mirroring = Vector2( 1920, 0 )
-
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/plain"]
-texture = ExtResource( 9 )
-centered = false
 
 [node name="utils" type="Node2D" parent="."]
 

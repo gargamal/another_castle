@@ -1248,8 +1248,12 @@ margin_left = -1.0
 margin_right = 39.0
 
 [node name="waterfall" parent="." instance=ExtResource( 7 )]
-position = Vector2( 6175.62, 965.251 )
+position = Vector2( 6181.28, 1007.68 )
 scale = Vector2( 0.82, 2 )
+
+[node name="waterfall9" parent="." instance=ExtResource( 7 )]
+position = Vector2( 6191.18, 782.818 )
+scale = Vector2( 0.5, 2 )
 
 [node name="waterfall3" parent="." instance=ExtResource( 7 )]
 position = Vector2( 18909, 975.085 )

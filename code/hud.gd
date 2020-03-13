@@ -25,7 +25,8 @@ func _ready():
 
 func _process(delta):
 	$canvas/vb/hb_life/life.value = GLOBAL.life
-	$canvas/vb/hb_cassoulet/cassoulet.value = (GLOBAL.cassoulet + 9) / 10
+	$canvas/vb/hb_cassoulet/vb/cassoulet.value = (GLOBAL.cassoulet + 9) / 10
+	$canvas/vb/hb_cassoulet/vb/effect.value = GLOBAL.nb_tick_cassoulet
 	$canvas/vb/hb_score/score.text = str(GLOBAL.score)
 	$canvas/vb/hb_time/time.text = str(GLOBAL.time_left)
 
@@ -100,9 +101,9 @@ func add_cassoulet(value):
 	
 	if GLOBAL.cassoulet < GLOBAL.CASSOULET_MAX:
 		for i in range(0, 5):
-			$canvas/vb/hb_cassoulet/cassoulet.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
+			$canvas/vb/hb_cassoulet/vb/cassoulet.modulate = COLOR_PAIR if i % 2 else COLOR_IMPAIR
 			yield(get_tree().create_timer(0.2), "timeout")
-		$canvas/vb/hb_cassoulet/cassoulet.modulate = WHITE
+		$canvas/vb/hb_cassoulet/vb/cassoulet.modulate = WHITE
 
 
 func _on_level_time_decreases(value):
@@ -125,3 +126,7 @@ func _on_ok_pressed():
 	$canvas/background/vb_gameover/ok.visible = false
 	$canvas/background/vb_gameover/name.visible = false
 	get_tree().reload_current_scene()
+
+
+func _on_player_cassoulet_effect_time(tick):
+	pass # Replace with function body.

@@ -86,6 +86,7 @@ func change_state(new_state):
 		CASSOULET:
 			if cassoulet:
 				emit_signal("cassoulet_consume", 10)
+				GLOBAL.nb_tick_cassoulet = GLOBAL.MAX_TICK_CASSOULET
 				$delay_cassoulet.start()
 			animation_play("cassoulet_effect", true)
 		TRANSFORM_SUPER_MARIOLLE:
@@ -240,6 +241,9 @@ func _on_delay_shoot_timeout():
 
 
 func _on_delay_cassoulet_timeout():
-	can_use_cassoulet = true
-	gravity = GRAVITY
-	change_state(IDLE)
+	GLOBAL.nb_tick_cassoulet -= 1
+	if GLOBAL.nb_tick_cassoulet <= 0:
+		$delay_cassoulet.stop()
+		can_use_cassoulet = true
+		gravity = GRAVITY
+		change_state(IDLE)

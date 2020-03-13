@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://code/weather.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+trail_divisor = 5
+emission_shape = 2
+emission_box_extents = Vector3( 2000, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 45, 90, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 100.0
+linear_accel_random = 1.0
+scale = 3.0
+scale_random = 1.0
+
+[sub_resource type="ParticlesMaterial" id=2]
+trail_divisor = 2
+emission_shape = 2
+emission_box_extents = Vector3( 2000, 1, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 10, 0 )
+initial_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 10.0
+linear_accel_random = 1.0
+scale = 5.0
+scale_random = 1.0
+
+[node name="weather" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="rain" type="Particles2D" parent="."]
+position = Vector2( 0, -100 )
+emitting = false
+amount = 5000
+lifetime = 5.0
+preprocess = 5.0
+speed_scale = 4.0
+process_material = SubResource( 1 )
+
+[node name="snow" type="Particles2D" parent="."]
+position = Vector2( 0, -100 )
+emitting = false
+amount = 5000
+lifetime = 10.0
+preprocess = 10.0
+randomness = 1.0
+process_material = SubResource( 2 )
