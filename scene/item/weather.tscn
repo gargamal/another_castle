@@ -3,11 +3,10 @@
 [ext_resource path="res://code/weather.gd" type="Script" id=1]
 
 [sub_resource type="ParticlesMaterial" id=1]
-trail_divisor = 5
 emission_shape = 2
 emission_box_extents = Vector3( 2000, 1, 1 )
 flag_disable_z = true
-gravity = Vector3( 45, 90, 0 )
+gravity = Vector3( 0, 90, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = 100.0
@@ -39,6 +38,15 @@ amount = 5000
 lifetime = 5.0
 preprocess = 5.0
 speed_scale = 4.0
+process_material = SubResource( 1 )
+
+[node name="cavern" type="Particles2D" parent="."]
+position = Vector2( 0, -100 )
+amount = 50
+lifetime = 5.0
+preprocess = 1.0
+speed_scale = 2.0
+randomness = 1.0
 process_material = SubResource( 1 )
 
 [node name="snow" type="Particles2D" parent="."]

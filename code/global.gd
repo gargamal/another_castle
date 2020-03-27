@@ -188,3 +188,13 @@ func restart():
 	cassoulet = 0
 	score = 0
 	time_left = MAX_TIME_LEFT
+
+
+func sleep(time_value, inst):
+	var t = Timer.new()
+	t.set_wait_time(time_value)
+	t.set_one_shot(true)
+	inst.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	t.queue_free()

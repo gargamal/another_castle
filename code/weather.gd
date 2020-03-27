@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-enum { SUN, RAIN, SNOW }
+enum { SUN, RAIN, SNOW, CAVERN }
 
 
 func _ready():
@@ -13,11 +13,19 @@ func set_weather(amount, weather):
 		SUN:
 			$rain.emitting = false
 			$snow.emitting = false
+			$cavern.emitting = false
 		RAIN:
 			$rain.emitting = true
 			$snow.emitting = false
+			$cavern.emitting = false
 			$rain.amount = amount
 		SNOW:
 			$rain.emitting = false
 			$snow.emitting = true
+			$cavern.emitting = false
 			$snow.amount = amount
+		CAVERN:
+			$rain.emitting = false
+			$snow.emitting = false
+			$cavern.emitting = true
+			$cavern.amount = amount

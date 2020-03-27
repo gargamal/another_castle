@@ -20,7 +20,7 @@ export(String, FILE, "*.tscn") var next_left
 
 
 var dict_scene
-
+var go_next_scene = false
 
 func _ready():
 	dict_scene = {
@@ -96,7 +96,8 @@ func _on_items_picked(body, coin_value, quantity = 0):
 		
 
 func _on_exit_right_body_entered(body):
-	if body.name == "player" and next_right != null:
+	if body.name == "player" and next_right != null and not go_next_scene:
+		go_next_scene = true
 		GLOBAL.set_direction(GLOBAL.RIGHT)
 		var score_time_left = GLOBAL.add_time_left_to_score()
 		emit_signal("score_changed", score_time_left)
@@ -109,9 +110,7 @@ func _on_exit_right_body_entered(body):
 
 
 func _on_exit_left_body_entered(body):
-	if body.name == "player" and next_left != null:
-		GLOBAL.set_direction(GLOBAL.LEFT)
-		get_tree().change_scene(next_left)
+	pass
 
 
 func _on_time_left_timeout():

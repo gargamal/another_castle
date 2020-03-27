@@ -10,7 +10,7 @@
 [ext_resource path="res://img/levels/tx_decors_1.png" type="Texture" id=8]
 [ext_resource path="res://img/levels/bk_plain_1.png" type="Texture" id=9]
 [ext_resource path="res://img/levels/bk_mountains_1.png" type="Texture" id=10]
-[ext_resource path="res://img/levels/tx_level_1.png" type="Texture" id=11]
+[ext_resource path="res://img/levels/tx_level_A1.png" type="Texture" id=11]
 [ext_resource path="res://img/characters/enemies_lvl_1.png" type="Texture" id=12]
 [ext_resource path="res://img/levels/tx_items.png" type="Texture" id=13]
 
@@ -326,7 +326,7 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
 [sub_resource type="TileSet" id=49]
-0/name = "tx_level_1.png 0"
+0/name = "tx_level_A1.png 0"
 0/texture = ExtResource( 11 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
