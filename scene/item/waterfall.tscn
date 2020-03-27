@@ -68,8 +68,10 @@ __meta__ = {
 modulate = Color( 1, 1, 1, 0.745098 )
 rotation = 1.5708
 texture = ExtResource( 1 )
+centered = false
 
 [node name="anim" type="Sprite" parent="."]
 material = SubResource( 2 )
 rotation = 1.5708
 texture = ExtResource( 1 )
+centered = false
