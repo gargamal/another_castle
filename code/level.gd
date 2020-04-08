@@ -97,6 +97,7 @@ func _on_items_picked(body, coin_value, quantity = 0):
 
 func _on_exit_right_body_entered(body):
 	if body.name == "player" and next_right != null and not go_next_scene:
+		$utils/exit_right/Sprite.frame = 1
 		go_next_scene = true
 		GLOBAL.set_direction(GLOBAL.RIGHT)
 		var score_time_left = GLOBAL.add_time_left_to_score()
