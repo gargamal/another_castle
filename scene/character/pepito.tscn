@@ -109,6 +109,7 @@ __meta__ = {
 texture = ExtResource( 2 )
 vframes = 5
 hframes = 4
+frame = 16
 
 [node name="collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -122,7 +123,3 @@ anims/idle = SubResource( 3 )
 anims/jump_down = SubResource( 4 )
 anims/jump_up = SubResource( 5 )
 anims/walk = SubResource( 6 )
-
-[node name="delay" type="Timer" parent="."]
-autostart = true
-[connection signal="timeout" from="delay" to="." method="_on_delay_timeout"]

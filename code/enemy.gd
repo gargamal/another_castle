@@ -9,7 +9,6 @@ const ACCEL = 100
 const LIMIT_LOW_SPEED = 5.0
 
 var vel = Vector2()
-var with_jump = false
 var jump = false
 var dir_x = 1
 var _type
@@ -21,7 +20,6 @@ var state = IDLE
 export (int) var height_jump = 1700
 export (int) var max_speed = 400
 export (int) var life = 10
-export (int) var delay_wait_time = 4
 export (int) var coin_value = 1500
 export (int) var damage = 1
 
@@ -31,7 +29,7 @@ signal enemy_death(value)
 
 func _ready():
 	randomize()
-	$delay.wait_time = delay_wait_time
+	play_enemy()
 	
 
 func init(pos, type):
@@ -110,10 +108,6 @@ func movement_loop():
 func play_enemy():
 	var val = int(rand_range(0, 10))
 	dir_x = 1 if val < 5 else -1 
-	
-	if with_jump:
-		val = int(rand_range(0, 10))
-		jump = val < 3
 	
 
 func hit(domage):

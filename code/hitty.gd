@@ -1,10 +1,10 @@
 extends "res://code/enemy.gd"
 
 func _ready():
-	height_jump = 3000
+	randomize()
+	height_jump = 1000
 	coin_value = 2000
-	with_jump = true
 
 
 func _on_delay_timeout():
-	play_enemy()
+	jump = int(rand_range(0, 10)) < 3
