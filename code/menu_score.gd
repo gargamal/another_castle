@@ -12,8 +12,8 @@ func _ready():
 		list.add_child(new_node)
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_cancel"):
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_menu_accept") or Input.is_action_just_pressed("ui_menu_return"):
 		if get_parent().has_node("menu_general/background/menu"):
 			get_parent().get_node("menu_general/background/menu").set_process(true)
 		queue_free()

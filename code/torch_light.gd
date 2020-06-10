@@ -14,8 +14,7 @@ func init(pos, type):
 	energy = $light.energy
 	
 
-
-func _physics_process(delta):
+func _process(_delta):
 	var x = rand_range(0, 100)
 	if x > 90:
 		$light.energy = energy + rand_range(-0.02, 0.02)

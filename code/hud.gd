@@ -116,7 +116,8 @@ func play_game_over():
 		$canvas/background/vb_gameover/name.grab_focus()
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
-		get_tree().reload_current_scene()
+		var error = get_tree().reload_current_scene()
+		if error != OK: print("Failure code=" + error)
 
 
 func _on_player_take_damage(value):
@@ -158,4 +159,5 @@ func _on_ok_pressed():
 	$canvas/background/vb_gameover/titlename.visible = false
 	$canvas/background/vb_gameover/ok.visible = false
 	$canvas/background/vb_gameover/name.visible = false
-	get_tree().reload_current_scene()
+	var error = get_tree().reload_current_scene()
+	if error != OK: print("Failure code=" + error)

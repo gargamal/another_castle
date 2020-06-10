@@ -66,7 +66,7 @@ func change_state(new_state):
 		JUMP_UP: animation_play("jump_up", true)
 		JUMP_DOWN: animation_play("jump_down", true)
 		DASH:
-			for x in range(0, 5):
+			for _x in range(0, 5):
 				var i = img_dash.instance()
 				i.init(position, 17)
 				get_parent().add_child(i)

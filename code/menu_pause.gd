@@ -5,6 +5,8 @@ enum {CONTINUE, RESTART, OPTION, QUIT}
 func _ready():
 	get_tree().paused = true
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_menu_return"): _on_menu_selected_item(CONTINUE)
 
 func _on_menu_selected_item(value):
 	match value:
@@ -14,7 +16,8 @@ func _on_menu_selected_item(value):
 		RESTART:
 			get_tree().paused = false
 			GLOBAL.restart()
-			get_tree().change_scene("res://scene/level/level_A1.tscn")
+			var error = get_tree().change_scene("res://scene/level/level_A1.tscn")
+			if error != OK: print("Failure code=" + error)
 			queue_free()
 		OPTION:
 			var menu = preload("res://scene/menu/menu_action_remap.tscn").instance()

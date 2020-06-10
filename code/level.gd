@@ -47,7 +47,7 @@ func _ready():
 	GLOBAL.reset_time()
 
 
-func _physics_process(delta):
+func _process(_delta):
 	var cancel = Input.is_action_pressed("ui_cancel")
 	if cancel:
 		var menu = preload("res://scene/menu/menu_pause.tscn").instance()
@@ -106,11 +106,12 @@ func _on_exit_right_body_entered(body):
 		add_child(inst_score)
 		inst_score.start($player.global_position, score_time_left)
 		yield(get_tree().create_timer(1.0), "timeout")
-		get_tree().change_scene(next_right)
+		var error = get_tree().change_scene(next_right)
+		if error != OK: print("Failure code=" + error)
 		queue_free()
 
 
-func _on_exit_left_body_entered(body):
+func _on_exit_left_body_entered(_body):
 	pass
 
 

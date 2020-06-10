@@ -10,8 +10,6 @@ var max_position = 0
 var lst = []
 
 func _ready():
-	var screen_size = get_viewport_rect().size
-	
 	lst = get_children()
 	for i in range(1, lst.size()):
 		lst[i].modulate.a = 0.3
@@ -19,10 +17,10 @@ func _ready():
 	max_position = lst.size() - 1
 
 
-func _process(delta):
-	if Input.is_action_just_pressed("ui_down"): next_position += 1
-	elif Input.is_action_just_pressed("ui_up"): next_position -= 1
-	elif Input.is_action_just_pressed("ui_accept"):
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_menu_down"): next_position += 1
+	elif Input.is_action_just_pressed("ui_menu_up"): next_position -= 1
+	elif Input.is_action_just_pressed("ui_menu_accept"):
 		emit_signal("selected_item", cur_position)
 		set_process(false)
 		return

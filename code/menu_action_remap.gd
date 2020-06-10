@@ -5,6 +5,9 @@ enum { UI_CASSOULET, UI_DASH, UI_DOWN, UI_LEFT, UI_RIGHT, UI_UP, UI_JUMP, UI_THR
 var is_waiting_action = false
 var menu_action = QUIT
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_menu_return"): _on_menu_selected_item(QUIT)
+
 func _ready():
 	$background/menu/ui_cassoulet.set_title("Use Cassoulet")
 	$background/menu/ui_cassoulet.set_input_key(GLOBAL.dict_param["ui_cassoulet"])
