@@ -14,8 +14,7 @@ func ready():
 
 func _physics_process(delta):
 	var collision = move_and_collide(vel * delta, true, true, is_fallen)
-	var error = move_and_slide(Vector2(0, 0), UP) # permet de fixer la normal et de connaitre la position du sol
-	if error != OK: print("Failure code=" + error)	
+	var _velocity = move_and_slide(Vector2(0, 0), UP) # permet de fixer la normal et de connaitre la position du sol
 	
 	if collision:		
 		if not has_hitting:
