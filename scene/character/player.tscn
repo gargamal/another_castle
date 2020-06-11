@@ -5,7 +5,7 @@
 [ext_resource path="res://scene/item/screen_shake.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 27.4529
+radius = 32.0
 height = 104.624
 
 [sub_resource type="Animation" id=2]
@@ -385,7 +385,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=25]
-extents = Vector2( 29.6415, 81.3306 )
+extents = Vector2( 39, 88 )
 
 [node name="player" type="KinematicBody2D"]
 collision_layer = 2
@@ -403,8 +403,6 @@ frame = 1
 region_rect = Rect2( 128, 128, 128, 128 )
 
 [node name="collision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( -7, 4 )
 shape = SubResource( 1 )
 
 [node name="cam" type="Camera2D" parent="."]
@@ -440,13 +438,11 @@ anims/walk_mariolle = SubResource( 23 )
 anims/walk_noham = SubResource( 24 )
 
 [node name="muzzle" type="Position2D" parent="."]
-position = Vector2( 35, 0 )
+position = Vector2( 60, 0 )
 
 [node name="hit_box" type="Area2D" parent="."]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hit_box"]
-position = Vector2( -7, 4 )
 shape = SubResource( 25 )
 
 [node name="delay_shoot" type="Timer" parent="."]

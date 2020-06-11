@@ -174,7 +174,7 @@ func movement_loop():
 		else:
 			vel.x = min(vel.x + ACCEL, max_speed)
 		dir = 1
-		$muzzle.position.x = 0 if GLOBAL.is_jean_du_balais() else 60
+		$muzzle.position.x = abs($muzzle.position.x)
 		$sprite.flip_h = false
 	elif dir_x == -1: # move left
 		if state == DASH:
@@ -182,7 +182,7 @@ func movement_loop():
 		else:
 			vel.x = max(vel.x - ACCEL, -max_speed)
 		dir = -1
-		$muzzle.position.x = -160 if GLOBAL.is_jean_du_balais() else -60
+		$muzzle.position.x = -abs($muzzle.position.x)
 		$sprite.flip_h = true
 	else: # no move idle
 		vel.x = lerp(vel.x, 0, 0.4)
