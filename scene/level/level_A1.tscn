@@ -431,6 +431,9 @@ position = Vector2( -1919, -3096 )
 scale = Vector2( 6, 3.61641 )
 texture = ExtResource( 14 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="mountains" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2( 0, -1150 )
@@ -498,60 +501,96 @@ __meta__ = {
 position = Vector2( -1920, 0 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite2" type="Sprite" parent="ParallaxBackground/clouds"]
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite3" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 1920, 0 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite4" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 3840, 0 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite5" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 5760, 32 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite6" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 7680, 50 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite7" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( -1920, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite8" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 0, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite9" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 1920, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite10" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 3840, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite11" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 5760, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite12" type="Sprite" parent="ParallaxBackground/clouds"]
 position = Vector2( 7680, -530 )
 texture = ExtResource( 12 )
 centered = false
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="plain" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2( 0, -900 )
@@ -623,7 +662,7 @@ visible = false
 position = Vector2( 955.063, 355.52 )
 
 [node name="exit_right" type="Area2D" parent="utils"]
-position = Vector2( 7513, 4780 )
+position = Vector2( 600, 400 )
 scale = Vector2( 1, 1.3 )
 collision_mask = 2
 __meta__ = {
