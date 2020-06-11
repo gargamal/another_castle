@@ -5,6 +5,7 @@ const UP = Vector2(0, -1) # indique le plafond
 const ACCEL = 100
 const DASHING_FACTOR = 3
 const LIMIT_LOW_SPEED = 10.0
+const LIMIT_LOW_FALL = 250.0
 
 var vel = Vector2()
 var gravity = GRAVITY
@@ -135,7 +136,7 @@ func state_loop():
 			change_state(IDLE)
 		if state in [IDLE, WALK] and not is_on_floor():
 			change_state(JUMP_UP)
-		if state == JUMP_UP and vel.y > 0:
+		if state == JUMP_UP and vel.y > LIMIT_LOW_FALL:
 			change_state(JUMP_DOWN)
 		if state in [JUMP_DOWN, JUMP_UP] and is_on_floor():
 			change_state(IDLE)

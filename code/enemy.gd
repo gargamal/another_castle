@@ -7,6 +7,9 @@ const GRAVITY = 5000
 const UP = Vector2(0, -1) # indique le plafond
 const ACCEL = 100
 const LIMIT_LOW_SPEED = 5.0
+const STOP_ON_SLOPE = false
+const MAX_SLIDES = 4
+const FLOOR_MAX_ANGLE = 0.8 # pour que les ennemies ne considére pas les pentes à 45° comme des murs
 
 var vel = Vector2()
 var jump = false
@@ -42,8 +45,7 @@ func _physics_process(delta):
 	movement_loop()
 	state_loop()
 	vel.y += GRAVITY * delta
-	vel = move_and_slide(vel, UP)
-	
+	vel = move_and_slide(vel, UP, STOP_ON_SLOPE, MAX_SLIDES, FLOOR_MAX_ANGLE)	
 
 func animation_play(animation):
 	if $anim.current_animation != animation:
