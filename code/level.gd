@@ -81,7 +81,6 @@ func spawn_object(tile_map, list_name, signal_connect = ""):
 					itm.connect(signal_connect, self, "_on_items_picked")
 				elif signal_connect == "enemy_death":
 					itm.connect(signal_connect, self, "_on_enemy_death")
-				
 
 
 func _on_enemy_death(value):

@@ -29,10 +29,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.08 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.08, 0.09 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -78,7 +78,7 @@ position = Vector2( 0, -0.273575 )
 texture = ExtResource( 2 )
 vframes = 3
 hframes = 2
-frame = 5
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

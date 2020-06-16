@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://code/weather.gd" type="Script" id=1]
+[ext_resource path="res://img/decor/fog.png" type="Texture" id=2]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -28,6 +29,20 @@ linear_accel_random = 1.0
 scale = 5.0
 scale_random = 1.0
 
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 800, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+radial_accel = 5.0
+radial_accel_random = 0.5
+scale = 0.5
+scale_random = 0.3
+
 [node name="weather" type="CanvasLayer"]
 script = ExtResource( 1 )
 
@@ -42,9 +57,10 @@ process_material = SubResource( 1 )
 
 [node name="cavern" type="Particles2D" parent="."]
 position = Vector2( 0, -100 )
+emitting = false
 amount = 50
 lifetime = 5.0
-preprocess = 1.0
+preprocess = 5.0
 speed_scale = 2.0
 randomness = 1.0
 process_material = SubResource( 1 )
@@ -57,3 +73,18 @@ lifetime = 10.0
 preprocess = 10.0
 randomness = 1.0
 process_material = SubResource( 2 )
+
+[node name="fog" type="Particles2D" parent="."]
+modulate = Color( 1, 1, 1, 0.313726 )
+position = Vector2( 2000, 400 )
+scale = Vector2( -3, 1 )
+emitting = false
+amount = 250
+lifetime = 15.0
+preprocess = 15.0
+explosiveness = 0.05
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}

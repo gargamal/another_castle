@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=2]
+[gd_scene load_steps=113 format=2]
 
 [ext_resource path="res://scene/character/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scene/hud/hud.tscn" type="PackedScene" id=2]
@@ -10,10 +10,9 @@
 [ext_resource path="res://img/levels/tx_decors_1.png" type="Texture" id=8]
 [ext_resource path="res://img/levels/cave.png" type="Texture" id=9]
 [ext_resource path="res://scene/item/waterfall.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scene/item/weather.tscn" type="PackedScene" id=11]
 [ext_resource path="res://img/characters/enemies_lvl_1.png" type="Texture" id=12]
 [ext_resource path="res://img/levels/tx_items.png" type="Texture" id=13]
-[ext_resource path="res://scene/item/fog.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scene/item/weather.tscn" type="PackedScene" id=14]
 
 [sub_resource type="TileSet" id=1]
 0/name = "ceilling"
@@ -907,11 +906,7 @@ __meta__ = {
 }
 next_right = "res://scene/level/level_A4.tscn"
 
-[node name="fog" parent="." instance=ExtResource( 14 )]
-position = Vector2( -150, -2500 )
-scale = Vector2( 110.5, 77.5151 )
-
-[node name="weather" parent="." instance=ExtResource( 11 )]
+[node name="weather" parent="." instance=ExtResource( 14 )]
 
 [node name="cave" type="Sprite" parent="."]
 position = Vector2( 100, -2340 )
@@ -919,8 +914,8 @@ scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 9 )
 
 [node name="waterfall" parent="." instance=ExtResource( 10 )]
-position = Vector2( 3705.63, -2055.04 )
-scale = Vector2( 0.9, 10 )
+position = Vector2( 3705.63, -2051.04 )
+scale = Vector2( 0.9, 4.375 )
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 margin_left = -1.0

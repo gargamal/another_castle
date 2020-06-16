@@ -1,31 +1,57 @@
 extends CanvasLayer
 
 
-enum { SUN, RAIN, SNOW, CAVERN }
+enum { SUN, RAIN, SNOW, CAVERN, FOG }
 
 
 func _ready():
-	set_weather(0, SUN)
+	sun()
 
 
-func set_weather(amount, weather):
+func sun():
+	$rain.emitting = false
+	$snow.emitting = false
+	$cavern.emitting = false
+	$fog.emitting = true
+
+
+func active_default(weather):
 	match(weather):
-		SUN:
-			$rain.emitting = false
-			$snow.emitting = false
-			$cavern.emitting = false
 		RAIN:
 			$rain.emitting = true
-			$snow.emitting = false
-			$cavern.emitting = false
+		SNOW:
+			$snow.emitting = true
+		CAVERN:
+			$cavern.emitting = true
+		FOG:
+			$fog.emitting = true
+	
+	print ($rain.emitting)
+
+
+func active(amount, weather):
+	match(weather):
+		RAIN:
+			$rain.emitting = true
 			$rain.amount = amount
 		SNOW:
-			$rain.emitting = false
 			$snow.emitting = true
-			$cavern.emitting = false
 			$snow.amount = amount
 		CAVERN:
-			$rain.emitting = false
-			$snow.emitting = false
 			$cavern.emitting = true
 			$cavern.amount = amount
+		FOG:
+			$fog.emitting = true
+			$fog.amount = amount
+
+
+func desactive(weather):
+	match(weather):
+		RAIN:
+			$rain.emitting = false
+		SNOW:
+			$snow.emitting = false
+		CAVERN:
+			$cavern.emitting = false
+		FOG:
+			$fog.emitting = false

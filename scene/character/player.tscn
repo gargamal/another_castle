@@ -5,8 +5,8 @@
 [ext_resource path="res://scene/item/screen_shake.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 32.0
-height = 96.0
+radius = 28.7114
+height = 99.4177
 
 [sub_resource type="Animation" id=2]
 resource_name = "cassoulet_effect"
@@ -385,7 +385,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=25]
-extents = Vector2( 39, 83.0533 )
+extents = Vector2( 32, 83.0533 )
 
 [node name="player" type="KinematicBody2D"]
 collision_layer = 2
@@ -450,6 +450,9 @@ one_shot = true
 
 [node name="delay_cassoulet" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="rayCast" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, 150 )
 [connection signal="body_entered" from="hit_box" to="." method="_on_hit_box_body_entered"]
 [connection signal="timeout" from="delay_shoot" to="." method="_on_delay_shoot_timeout"]
 [connection signal="timeout" from="delay_cassoulet" to="." method="_on_delay_cassoulet_timeout"]

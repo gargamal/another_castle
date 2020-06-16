@@ -3,7 +3,7 @@ extends KinematicBody2D
 const GRAVITY = 5000
 const UP = Vector2(0, -1) # indique le plafond
 const ACCEL = 100
-const DASHING_FACTOR = 3
+const DASHING_FACTOR = 5
 const LIMIT_LOW_SPEED = 10.0
 const LIMIT_LOW_FALL = 250.0
 
@@ -43,7 +43,15 @@ func _ready():
 func _physics_process(delta):
 	movement_loop()
 	state_loop()
-	vel.y += gravity * delta
+	
+	var space_state := get_world_2d().direct_space_state
+	var result := space_state.intersect_ray(global_position, global_position + Vector2.DOWN * 128, [self])
+	
+	if result:
+		vel = vel - result.normal * gravity * delta
+	else: 
+		vel.y += gravity * delta
+		
 	vel = move_and_slide(vel, UP)
 
 
@@ -143,7 +151,7 @@ func state_loop():
 		if state == WALK and dashing:
 			change_state(DASH)
 	elif state == IDLE or GLOBAL.has_cassoulet() and can_use_cassoulet:
-			change_state(CASSOULET)
+		change_state(CASSOULET)
 	
 	if GLOBAL.is_jean_du_balais() and throw_hammer and GLOBAL.has_hammer() and not is_on_wall():
 		change_state(THROW)
