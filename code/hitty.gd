@@ -2,7 +2,7 @@ extends "res://code/enemy.gd"
 
 func _ready():
 	randomize()
-	height_jump = 1000
+	height_jump = 2000
 	coin_value = 2000
 
 

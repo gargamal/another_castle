@@ -9,7 +9,13 @@ func _ready():
 	$dark_light.color = Color("#222222")
 	add_cave_background()
 	spawn_object($lights, ["torch"])
-	$weather.set_weather(50, $weather.CAVERN)
+	$weather.active($weather.CAVERN)
+	$weather.amount(50, $weather.CAVERN)
+	
+	$weather.active($weather.FOG)
+	$weather.amount(1000, $weather.FOG)
+	$weather.modulate(Color(1, 1, 1, 0.02), $weather.FOG)
+	$weather.speed(10.0, 0.0, 0.0, 110, $weather.FOG)
 
 
 func add_cave_background():
