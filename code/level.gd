@@ -106,7 +106,7 @@ func _on_exit_right_body_entered(body):
 		inst_score.start($player.global_position, score_time_left)
 		yield(get_tree().create_timer(1.0), "timeout")
 		var error = get_tree().change_scene(next_right)
-		if error != OK: print("Failure code=" + error)
+		if error != OK: print("Failure code=" + str(error))
 		queue_free()
 
 

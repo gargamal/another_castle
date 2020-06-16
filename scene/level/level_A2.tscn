@@ -839,6 +839,7 @@ script = ExtResource( 5 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -58.0951 ]
 }
+next_right = "res://scene/level/level_A3.tscn"
 
 [node name="HUD" parent="." instance=ExtResource( 2 )]
 margin_left = -1.0

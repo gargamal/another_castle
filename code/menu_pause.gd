@@ -17,7 +17,7 @@ func _on_menu_selected_item(value):
 			get_tree().paused = false
 			GLOBAL.restart()
 			var error = get_tree().change_scene("res://scene/level/level_A1.tscn")
-			if error != OK: print("Failure code=" + error)
+			if error != OK: print("Failure code=" + str(error))
 			queue_free()
 		OPTION:
 			var menu = preload("res://scene/menu/menu_action_remap.tscn").instance()
